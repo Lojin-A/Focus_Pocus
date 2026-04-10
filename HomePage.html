@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Pocus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #f8f6f0; /* Warm off-white paper texture */
+            font-family: 'Balsamiq Sans', cursive, sans-serif;
+            color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 950px;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Red scribble in the top right */
+        .red-scribble {
+            position: absolute;
+            top: -20px;
+            right: 80px;
+            width: 60px;
+            height: 70px;
+            background-color: #f24e3d;
+            /* Using clip-path to mimic the abstract squiggle shape */
+            clip-path: polygon(20% 0%, 50% 20%, 80% 0%, 100% 80%, 70% 100%, 40% 60%, 10% 90%, 0% 50%);
+            border-radius: 10px;
+            transform: rotate(15deg);
+        }
+
+        /* Bubbly Title Styling */
+        .title {
+            font-size: 3.5rem;
+            letter-spacing: 4px;
+            color: #92c0de; /* Light blue fill */
+            -webkit-text-stroke: 2px #2b2b2b; /* Dark outline */
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .cards-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        /* Hand-drawn box effect using border-radius */
+        .card {
+            background-color: #fff;
+            border: 2px solid #2b2b2b;
+            /* Irregular border radius for the hand-drawn box look */
+            border-radius: 2px 255px 3px 25px / 255px 5px 225px 3px;
+            width: 190px;
+            height: 200px;
+            box-sizing: border-box;
+            box-shadow: 2px 3px 0px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) rotate(1deg);
+        }
+
+        /* Container for the visual icons */
+        .icon-container {
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 4rem;
+        }
+
+        /* Custom CSS Drawing for Memory Match */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+        .memory-box {
+            width: 35px;
+            height: 35px;
+            border: 2px solid #2b2b2b;
+            border-radius: 4px 10px 4px 8px / 8px 4px 10px 4px;
+        }
+        .box-red { background-color: #f24e3d; }
+        .box-green { background-color: #61c461; }
+        .box-blue { background-color: #4a90e2; }
+        .box-yellow { background-color: #fdd835; }
+
+        /* Custom CSS Drawing for Guess the Number */
+        .guess-circle {
+            width: 70px;
+            height: 70px;
+            background-color: #92c0de;
+            border: 3px solid #3c5a82;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 0 4px #c2dcf0; /* Inner light ring */
+        }
+        .guess-circle span {
+            color: #3c5a82;
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            margin: 0;
+            color: #2b2b2b;
+        }
+
+        /* New Central Voting Button */
+        .main-action-btn {
+            display: inline-block;
+            font-family: 'Balsamiq Sans', cursive;
+            font-size: 1.4rem;
+            color: #2b2b2b;
+            text-decoration: none;
+            background-color: #fdd835; /* Cheerful yellow */
+            padding: 12px 40px;
+            border: 2px solid #2b2b2b;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* Sketchy shape */
+            box-shadow: 3px 4px 0px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .main-action-btn:hover {
+            background-color: #fce05f;
+            transform: translateY(-2px);
+        }
+
+        .main-action-btn:active {
+            transform: scale(0.96) translateY(2px);
+            box-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="red-scribble"></div>
+
+        <h1 class="title">Focus Pocus</h1>
+        
+        <div class="cards-wrapper">
+            <div class="card">
+                <div class="icon-container">
+                    🦦 </div>
+                <p>Whack-a-Mole</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <div class="memory-grid">
+                        <div class="memory-box box-red"></div>
+                        <div class="memory-box box-green"></div>
+                        <div class="memory-box box-blue"></div>
+                        <div class="memory-box box-yellow"></div>
+                    </div>
+                </div>
+                <p>Memory Match</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    ✌️✊
+                </div>
+                <p>Rock Paper Scissors</p>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <div class="guess-circle">
+                        <span>?</span>
+                    </div>
+                </div>
+                <p>Guess the Number</p>
+            </div>
+        </div>
+
+<a href="voting.html" class="main-action-btn">Choose your favourite game!</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Add a fun little click animation to the game cards using jQuery
+            $('.card').on('click', function() {
+                $(this).animate({ top: "-10px" }, 100).animate({ top: "0px" }, 100);
+            });
+
+            // Example of catching the button click before it navigates (optional)
+            $('.main-action-btn').on('click', function(e) {
+                // If you want to perform a fade-out animation before leaving the page:
+                // e.preventDefault(); 
+                // let targetUrl = $(this).attr('href');
+                // $('body').fadeOut(400, function() {
+                //     window.location.href = targetUrl;
+                // });
+            });
+        });
+    </script>
+</body>
+</html>
