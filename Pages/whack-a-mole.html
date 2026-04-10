@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whack-a-Mole</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../Assets/CSS/whack-style.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <button id="home-btn">🏠 Home</button>
+
+    <div class="game-container">
+        <h1>Whack-a-Mole</h1>
+        
+        <div class="stats">
+            <p>Score: <span id="score">0</span></p>
+            <p>Time: <span id="time">30</span></p>
+        </div>
+        
+        <div class="controls">
+            <button id="start-btn">Play New Game!</button>
+            <button id="pause-btn">Stop</button>
+        </div>
+
+        <div class="board">
+            <div class="hole"><img src="../Assets/Media/hole-empty.png" class="mole-img"></div>
+            <div class="hole"><img src="../Assets/Media/hole-empty.png" class="mole-img"></div>
+            <div class="hole"><img src="../Assets/Media/hole-empty.png" class="mole-img"></div>
+            <div class="hole"><img src="../Assets/Media/hole-empty.png" class="mole-img"></div>
+            <div class="hole"><img src="../Assets/Media/hole-empty.png" class="mole-img"></div>
+            <div class="hole"><img src="../Assets/Media/hole-empty.png" class="mole-img"></div>
+        </div>
+    </div>
+
+    <div id="game-over-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Time's Up!</h2>
+            <p>Your Final Score: <span id="final-score">0</span></p>
+            
+            <div class="modal-buttons">
+                <button id="play-again-btn">Play Again</button>
+                <button id="modal-home-btn">🏠 Go Home</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../Assets/JavaScript/whack-script.js"></script>
+</body>
+</html>
