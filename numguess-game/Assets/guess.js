@@ -37,7 +37,6 @@ function initGame() {
     guessInput.focus();
 }
 
-
 function getMessage(distance, numGuess) {
     if (distance === 0) {
         return `BOOM! ${targetNumber} is the magic number!`;
@@ -54,7 +53,7 @@ function getMessage(distance, numGuess) {
         feedback = "Brrr, stone cold.";
     }
 
-    feedback += numGuess < targetNumber ? " Try higher! ⬆️" : " Try lower! ⬇️";
+    feedback += numGuess < targetNumber ? " Try higher!" : " Try lower!";
     return feedback;
 }
 
@@ -83,8 +82,22 @@ function renderHistory() {
 
     guessHistory.forEach(item => {
         const div = document.createElement("div");
+        let arrow = "=";
+        let arrowClass = "correct";
+
+        if (item.value < targetNumber) {
+            arrow = "&uarr;";
+            arrowClass = "low";
+        } else if (item.value > targetNumber) {
+            arrow = "&darr;";
+            arrowClass = "high";
+        }
+
         div.className = `history-item ${item.type}`;
-        div.textContent = item.value;
+        div.innerHTML = `
+            <span class="history-value">${item.value}</span>
+            <span class="history-arrow ${arrowClass}">${arrow}</span>
+        `;
         historyList.appendChild(div);
     });
 

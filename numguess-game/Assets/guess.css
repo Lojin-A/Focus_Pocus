@@ -182,20 +182,44 @@ input[type="number"]:focus {
 }
 
 .history-item {
-    width: 48px;
-    height: 48px;
+    min-width: 62px;
+    min-height: 62px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
     font-weight: bold;
     border: 2px solid #333333;
     border-radius: 14px;
     transition: transform 0.2s ease;
+    padding: 6px;
 }
 
 .history-item:hover {
     transform: scale(1.08);
+}
+
+.history-value {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.history-arrow {
+    font-size: 1.2rem;
+    line-height: 1;
+    margin-top: 4px;
+}
+
+.history-arrow.low {
+    color: #2563eb;
+}
+
+.history-arrow.high {
+    color: #dc2626;
+}
+
+.history-arrow.correct {
+    color: #16a34a;
 }
 
 .history-item.very-hot { background-color: #fecaca; }
