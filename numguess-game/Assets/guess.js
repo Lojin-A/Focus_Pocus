@@ -3,17 +3,17 @@ let attempts = 0;
 let isGameOver = false;
 let guessHistory = [];
 
-const guessInput = document.getElementById("guessInput");
-const guessForm = document.getElementById("guessForm");
-const messageArea = document.getElementById("messageArea");
-const attemptsCount = document.getElementById("attemptsCount");
-const historySection = document.getElementById("historySection");
-const historyList = document.getElementById("historyList");
-const playAgainBtn = document.getElementById("playAgainBtn");
-const giveUpBtn = document.getElementById("giveUpBtn");
-const restartWrapper = document.getElementById("restartWrapper");
-const gameContainer = document.querySelector(".game-container");
-const celebration = document.getElementById("celebration");
+const $guessInput = $("#guessInput");
+const $guessForm = $("#guessForm");
+const $messageArea = $("#messageArea");
+const $attemptsCount = $("#attemptsCount");
+const $historySection = $("#historySection");
+const $historyList = $("#historyList");
+const $playAgainBtn = $("#playAgainBtn");
+const $giveUpBtn = $("#giveUpBtn");
+const $restartWrapper = $("#restartWrapper");
+const $gameContainer = $(".game-container");
+const $celebration = $("#celebration");
 
 function initGame() {
     targetNumber = Math.floor(Math.random() * 100) + 1;
@@ -21,20 +21,20 @@ function initGame() {
     isGameOver = false;
     guessHistory = [];
 
-    guessInput.value = "";
-    messageArea.textContent = "Can you find the magic number? (1-100)";
-    messageArea.className = "message-area";
-    attemptsCount.textContent = "0";
-    historyList.innerHTML = "";
-    historySection.classList.add("hidden");
-    restartWrapper.classList.add("hidden");
-    giveUpBtn.classList.add("hidden");
-    guessForm.classList.remove("hidden");
-    gameContainer.classList.remove("win");
-    celebration.innerHTML = "";
-    celebration.classList.add("hidden");
+    $guessInput.val("");
+    $messageArea.text("Can you find the magic number? (1-100)");
+    $messageArea.attr("class", "message-area");
+    $attemptsCount.text("0");
+    $historyList.empty();
+    $historySection.addClass("hidden");
+    $restartWrapper.addClass("hidden");
+    $giveUpBtn.addClass("hidden");
+    $guessForm.removeClass("hidden");
+    $gameContainer.removeClass("win");
+    $celebration.empty();
+    $celebration.addClass("hidden");
 
-    guessInput.focus();
+    $guessInput.trigger("focus");
 }
 
 function getMessage(distance, numGuess) {
@@ -78,10 +78,9 @@ function getHintType(distance) {
 }
 
 function renderHistory() {
-    historyList.innerHTML = "";
+    $historyList.empty();
 
     guessHistory.forEach(item => {
-        const div = document.createElement("div");
         let arrow = "=";
         let arrowClass = "correct";
 
@@ -93,38 +92,39 @@ function renderHistory() {
             arrowClass = "high";
         }
 
-        div.className = `history-item ${item.type}`;
-        div.innerHTML = `
-            <span class="history-value">${item.value}</span>
-            <span class="history-arrow ${arrowClass}">${arrow}</span>
-        `;
-        historyList.appendChild(div);
+        const $item = $(`
+            <div class="history-item ${item.type}">
+                <span class="history-value">${item.value}</span>
+                <span class="history-arrow ${arrowClass}">${arrow}</span>
+            </div>
+        `);
+        $historyList.append($item);
     });
 
     if (guessHistory.length > 0) {
-        historySection.classList.remove("hidden");
+        $historySection.removeClass("hidden");
     }
 }
 
 function launchCelebration() {
     const colors = ["#f97316", "#facc15", "#22c55e", "#38bdf8", "#f472b6", "#a78bfa"];
 
-    celebration.innerHTML = "";
-    celebration.classList.remove("hidden");
+    $celebration.empty();
+    $celebration.removeClass("hidden");
 
     for (let i = 0; i < 18; i++) {
-        const piece = document.createElement("span");
-        piece.className = "confetti";
-        piece.style.left = `${Math.random() * 100}%`;
-        piece.style.backgroundColor = colors[i % colors.length];
-        piece.style.animationDelay = `${i * 0.04}s`;
-        piece.style.animationDuration = `${1.4 + Math.random() * 0.8}s`;
-        celebration.appendChild(piece);
+        const $piece = $("<span></span>", { class: "confetti" }).css({
+            left: `${Math.random() * 100}%`,
+            backgroundColor: colors[i % colors.length],
+            animationDelay: `${i * 0.04}s`,
+            animationDuration: `${1.4 + Math.random() * 0.8}s`
+        });
+        $celebration.append($piece);
     }
 
     setTimeout(() => {
-        celebration.classList.add("hidden");
-        celebration.innerHTML = "";
+        $celebration.addClass("hidden");
+        $celebration.empty();
     }, 2400);
 }
 
@@ -133,15 +133,15 @@ function handleGuess(event) {
 
     if (isGameOver) return;
 
-    const numGuess = parseInt(guessInput.value);
+    const numGuess = parseInt($guessInput.val(), 10);
 
     if (isNaN(numGuess) || numGuess < 1 || numGuess > 100) {
-        messageArea.textContent = "Whoops! Enter a number between 1 and 100.";
+        $messageArea.text("Whoops! Enter a number between 1 and 100.");
         return;
     }
 
     attempts++;
-    attemptsCount.textContent = attempts;
+    $attemptsCount.text(attempts);
 
     const distance = Math.abs(targetNumber - numGuess);
     const hintType = getHintType(distance);
@@ -149,28 +149,30 @@ function handleGuess(event) {
 
     guessHistory.unshift({ value: numGuess, type: hintType });
 
-    messageArea.textContent = message;
-    messageArea.className = `message-area ${hintType}`;
+    $messageArea.text(message);
+    $messageArea.attr("class", `message-area ${hintType}`);
 
     renderHistory();
 
     if (hintType === "correct") {
         isGameOver = true;
-        guessForm.classList.add("hidden");
-        restartWrapper.classList.remove("hidden");
-        giveUpBtn.classList.add("hidden");
-        gameContainer.classList.add("win");
+        $guessForm.addClass("hidden");
+        $restartWrapper.removeClass("hidden");
+        $giveUpBtn.addClass("hidden");
+        $gameContainer.addClass("win");
         launchCelebration();
     } else if (attempts > 0) {
-        giveUpBtn.classList.remove("hidden");
+        $giveUpBtn.removeClass("hidden");
     }
 
-    guessInput.value = "";
-    guessInput.focus();
+    $guessInput.val("");
+    $guessInput.trigger("focus");
 }
 
-guessForm.addEventListener("submit", handleGuess);
-playAgainBtn.addEventListener("click", initGame);
-giveUpBtn.addEventListener("click", initGame);
+$(function () {
+    $guessForm.on("submit", handleGuess);
+    $playAgainBtn.on("click", initGame);
+    $giveUpBtn.on("click", initGame);
 
-initGame();
+    initGame();
+});
