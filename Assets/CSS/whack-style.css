@@ -10,16 +10,29 @@ body {
     margin: 0;
 }
 
-#home-btn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: #ffd166; 
-    margin: 0; 
+.home-button {
+    position: fixed;
+    top: 15px;
+    left: 60px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: block;
 }
 
-#home-btn:hover {
-    background-color: #ffc233;
+.home-button img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.home-button:hover {
+    transform: scale(1.1);
+}
+
+.home-button:hover img {
+    filter: drop-shadow(0 0 5px rgba(79, 128, 111, 0.5));
 }
 
 .game-container {
@@ -53,14 +66,6 @@ h1 {
     margin-bottom: 20px;
 }
 
-.controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px; 
-    margin-bottom: 30px;
-}
-
 button {
     background-color: #90c2e7; 
     border: 2px solid #333;
@@ -69,19 +74,11 @@ button {
     font-family: 'Patrick Hand', cursive;
     font-size: 28px;
     cursor: pointer;
+    margin-bottom: 30px;
 }
 
 button:hover {
     background-color: #7ab2db;
-}
-
-#pause-btn {
-    background-color: #f4a261; 
-    display: none; 
-}
-
-#pause-btn:hover {
-    background-color: #e76f51; 
 }
 
 .board {
@@ -156,26 +153,47 @@ button:hover {
     background-color: #ffc233;
 }
 
+@media screen and (max-width: 530px) {
+    .home-button img {
+        width: 35px;
+        height: 35px;
+    }
+    .home-button {
+        top: 15px;
+        left: 15px;
+    }
+}
 
 @media (max-width: 600px) {
     h1 {
         font-size: 35px; 
     }
-    
     .stats {
         font-size: 22px; 
     }
-    
     button {
         font-size: 20px; 
         padding: 8px 15px;
     }
-    
     .hole {
         height: 80px; 
     }
-    
     .game-container {
         padding: 20px; 
+    }
+    .modal-content {
+        padding: 30px 20px; 
+        width: 85%; 
+        box-sizing: border-box;
+    }
+    .modal-content h2 {
+        font-size: 40px; 
+    }
+    .modal-content p {
+        font-size: 28px; 
+        margin-bottom: 20px;
+    }
+    .modal-buttons {
+        gap: 10px; 
     }
 }
