@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guess the Number</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../Assets/guess.css">
+</head>
+<body>
+  <div class="canvas">
+    <div class="game-container">
+      <div id="celebration" class="celebration hidden" aria-hidden="true"></div>
+      <header>
+        <h1 class="sketch-title">🎲 NumGuess 🎲</h1>
+      </header>
+
+      <main>
+        <div id="messageArea" class="message-area">
+          Can you find the magic number? (1-100)
+        </div>
+
+        <form id="guessForm" class="input-section">
+          <input
+            id="guessInput"
+            type="number"
+            min="1"
+            max="100"
+            placeholder="??"
+            autocomplete="off"
+          />
+          <button type="submit" class="sketch-btn primary">🔎 Guess!</button>
+        </form>
+
+        <div id="restartWrapper" class="restart-wrapper hidden">
+          <button id="playAgainBtn" class="sketch-btn primary full-btn">🔄 Play New Game!</button>
+        </div>
+
+        <div class="stats-section">
+          <p class="attempts-label">
+            Attempts: <span id="attemptsCount">0</span>
+          </p>
+        </div>
+
+        <div id="historySection" class="history-section hidden">
+          <div class="history-title">🕒 Previous Guesses</div>
+          <div id="historyList" class="history-list"></div>
+        </div>
+
+        <footer id="footerArea">
+          <button id="giveUpBtn" class="sketch-btn secondary hidden">🔄 Give up & Restart</button>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../Assets/guess.js"></script>
+
+  <a href="../index.html" class="home-button">
+    <img src="media/home-icon.png" alt="Home">
+    </a>
+</body>
+</html>
