@@ -1,0 +1,121 @@
+body {
+    font-family: 'Caveat', cursive; /* Marker/Handwritten font */
+    background-color: #fdfbf7;
+    /* Dotted background pattern */
+    background-image: radial-gradient(#a0a0a0 1px, transparent 1px);
+    background-size: 30px 30px; /* This spaces out the dots */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #2b2b2b; /* Dark marker ink color */
+    background: url('../Media/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.game-container {
+    text-align: center;
+    background-color: #ffffff; 
+    padding: 40px;
+    border: 3px solid #2b2b2b;
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; 
+    max-width: 550px;
+}
+
+h1 { font-size: 3.5rem; margin-top: 0; letter-spacing: 2px; }
+h3 { font-size: 2rem; margin: 5px 0; }
+p { font-size: 1.8rem; }
+
+.image-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 15px;
+    cursor: pointer;
+    outline: none;
+}
+
+.image-btn img {
+    width: 130px; 
+    height: auto;
+    display: block;
+    filter: drop-shadow(4px 4px 0px #2b2b2b);
+    transition: transform 0.1s ease, filter 0.1s ease;
+}
+
+.image-btn:active img {
+    transform: translate(4px, 4px);
+    filter: drop-shadow(0px 0px 0px #2b2b2b);
+}
+
+.vote-btn {
+    font-family: 'Caveat', cursive;
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px 30px;
+    cursor: pointer;
+    background-color: #9acced; 
+    background-image: none; 
+    color: #2b2b2b;
+    text-shadow: none; 
+    border: 2px solid #2b2b2b; 
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; 
+    box-shadow: none; 
+    transition: transform 0.1s ease;
+}
+
+/* Button Click Animation */
+.vote-btn:active {
+    transform: scale(0.95); /* Shrinks slightly  */
+}
+
+.result-area {
+    margin: 30px 0;
+    min-height: 120px;
+}
+
+#result-text { font-size: 3rem; margin-bottom: 5px; }
+
+.sketch-line {
+    border: 0;
+    border-top: 3px solid #2b2b2b;
+    border-radius: 50%;
+    margin: 30px 0;
+}
+.home-button {
+  position: fixed;
+  top: 15px;
+  left: 60px;
+  z-index: 1000;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.home-button img {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.home-button:hover {
+  transform: scale(1.1);
+}
+
+.home-button:hover img {
+  filter: drop-shadow(0 0 5px rgba(79, 128, 111, 0.5));
+}
+@media screen and (max-width: 530px) {
+ .home-button img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .home-button {
+    top: 15px;
+    left: 15px;
+  }
+}

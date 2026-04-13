@@ -17,7 +17,7 @@ body{
   justify-content: center;
   min-height: 100vh;
   background: #F9F9F9;
-   background: url('Media/background.jpg') no-repeat center center fixed;
+   background: url('../Media/background.jpg') no-repeat center center fixed;
   background-size: cover;
 }
 ::selection{
