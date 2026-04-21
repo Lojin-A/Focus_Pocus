@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="../Assets/CSS/account-style.css">
+</head>
+<body>
+
+     <a href="../index.html" class="home-button">
+        <img src="../Assets/Media/home-icon.png" alt="Home">
+    </a>
+
+
+    <div class="profile-tags-container">
+        <div class="tag paper-box">
+            <img src="../Assets/Media/MyAccount_Icon.png" alt="Profile" class="tag-icon">
+            Lojin
+        </div>
+        
+        <div class="tag paper-box">
+            <img src="../Assets/Media/email_icon.png" alt="Email" class="tag-icon">
+            lojin@example.com
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        
+        <div class="card paper-box">
+            <div id="piechart1" class="chart-area"></div>
+            <div class="info-area">
+                <h3>✨ NumGuess Pro</h3>
+                <p>Total Played: 15 | Fewest Guesses: 3</p>
+            </div>
+        </div>
+
+        <div class="card paper-box">
+            <div id="piechart2" class="chart-area"></div>
+            <div class="info-area">
+                <h3>🔨 Whack-a-Mole</h3>
+                <p>Total Played: 8 | High Score: 150</p>
+            </div>
+        </div>
+
+        <div class="card paper-box">
+            <div id="piechart3" class="chart-area"></div>
+            <div class="info-area">
+                <h3>🃏 Memory Match</h3>
+                <p>Total Played: 12 | Fewest Flips: 10</p>
+            </div>
+        </div>
+
+        <div class="card paper-box">
+            <div id="piechart4" class="chart-area"></div>
+            <div class="info-area">
+                <h3>✂️ Rock Paper Scissors</h3>
+                <p>Total Played: 20 | Win Rate: 60%</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../Assets/JavaScript/account-script.js"></script>
+</body>
+</html>
