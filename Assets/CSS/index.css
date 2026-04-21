@@ -10,6 +10,31 @@ body {
             overflow-x: hidden;
         }
 
+        .Myaccount-button {
+    position: fixed;
+    top: 15px;
+    left: 60px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.Myaccount-button img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.Myaccount-button:hover {
+    transform: scale(1.1);
+}
+
+.Myaccount-button:hover img {
+    filter: drop-shadow(0 0 5px rgba(79, 128, 111, 0.5));
+}
+
         .container {
             text-align: center;
             width: 100%;
@@ -68,6 +93,7 @@ body {
             align-items: center;
             transition: transform 0.2s ease;
             cursor: pointer;
+            text-decoration: none;
         }
 
         .card:hover {
