@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Pocus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Assets/CSS/index.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="red-scribble"></div>
+
+        <h1 class="title">Focus Pocus</h1>
+        
+        <div class="cards-wrapper">
+            <a href="Pages/whack-a-mole.html" class="card">
+                <div class="icon-container">
+                    🦦 
+                </div>
+                <p>Whack-a-Mole</p>
+            </a>
+
+            <a href="Pages/MemoryMatch.html" class="card">
+                <div class="icon-container">
+                    <div class="memory-grid">
+                        <div class="memory-box box-red"></div>
+                        <div class="memory-box box-green"></div>
+                        <div class="memory-box box-blue"></div>
+                        <div class="memory-box box-yellow"></div>
+                    </div>
+                </div>
+                <p>Memory Match</p>
+            </a>
+
+    <a href="Pages/RPSGame.html" class="card">
+    <div class="icon-container">
+        ✌️✊
+    </div>
+    <p>Rock Paper Scissors</p>
+</a>
+
+<a href="Pages/guess.html" class="card">
+    <div class="icon-container">
+        <div class="guess-circle">
+            <span>?</span>
+        </div>
+    </div>
+    <p>Guess the Number</p>
+</a>
+
+        <a href="Pages/voting.html" class="main-action-btn">Choose your favourite game!</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Click animation for the game cards
+            $('.card').on('click', function() {
+                $(this).animate({ top: "-10px" }, 100).animate({ top: "0px" }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

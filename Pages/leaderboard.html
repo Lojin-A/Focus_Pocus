@@ -1,0 +1,69 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Focus Pocus - Global Leaderboards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/CSS/leaderboard.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1 class="page-title">Focus Pocus leaderboard</h1>
+
+    <div class="leaderboard-wrapper">
+        
+        <div class="game-card">
+            <div class="card-header">
+                <h2>Whack-a-Mole</h2>
+                <button class="vote-btn" value="Whack-a-Mole">Vote!</button>
+            </div>
+            <ol class="top-players">
+                <?php while($row = $whackScores->fetch_assoc()): ?>
+                    <li><span><?= $row['username'] ?></span> <span><?= $row['score'] ?> pts</span></li>
+                <?php endwhile; ?>
+            </ol>
+        </div>
+
+        <div class="game-card">
+            <div class="card-header">
+                <h2>Guess the Number</h2>
+                <button class="vote-btn" value="Guess the Number">Vote!</button>
+            </div>
+            <ol class="top-players">
+                <?php while($row = $guessScores->fetch_assoc()): ?>
+                    <li><span><?= $row['username'] ?></span> <span><?= $row['attempts'] ?> tries</span></li>
+                <?php endwhile; ?>
+            </ol>
+        </div>
+
+        <div class="game-card">
+            <div class="card-header">
+                <h2>Memory Match</h2>
+                <button class="vote-btn" value="Memory Match">Vote!</button>
+            </div>
+            <ol class="top-players">
+                <?php while($row = $memoryScores->fetch_assoc()): ?>
+                    <li><span><?= $row['username'] ?></span> <span><?= $row['time_elapsed'] ?>s</span></li>
+                <?php endwhile; ?>
+            </ol>
+        </div>
+
+        <div class="game-card">
+            <div class="card-header">
+                <h2>RPS Battle</h2>
+                <button class="vote-btn" value="Rock Paper Scissors">Vote!</button>
+            </div>
+            <ol class="top-players">
+                <?php while($row = $rpsScores->fetch_assoc()): ?>
+                    <li><span><?= $row['username'] ?></span> <span><?= $row['player_score'] ?> wins</span></li>
+                <?php endwhile; ?>
+            </ol>
+        </div>
+
+    </div>
+
+    <script src="../Assets/JavaScript/voting.js"></script>
+</body>
+</html>
