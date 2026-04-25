@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
             background-color: #f8f6f0; /* Warm off-white paper texture */
             font-family: 'Balsamiq Sans', cursive, sans-serif;
@@ -150,3 +151,300 @@ body {
             transform: scale(0.96) translateY(2px);
             box-shadow: 1px 1px 0px rgba(0,0,0,0.1);
         }
+=======
+/* ==========================Font========================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+@font-face {
+  font-family: 'robotoregular';
+  src: url(../fonts/roboto-regular-webfont.woff) format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", "robotoregular", sans-serif;
+}
+.Myaccount-button {
+    position: fixed;
+    top: 15px;
+    left: 60px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: block;
+}
+.Myaccount-button img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.Myaccount-button:hover {
+    transform: scale(1.1);
+}
+
+.Myaccount-button:hover img {
+    filter: drop-shadow(0 0 5px rgba(79, 128, 111, 0.5));
+}
+.title {
+            font-size: 3.5rem;
+            letter-spacing: 4px;
+            color: #92c0de; /* Light blue fill */
+            -webkit-text-stroke: 2px #2b2b2b; /* Dark outline */
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
+            margin-bottom: 20px 0 40px 0;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-align: center;
+            width: 100%;
+        }
+body {
+  display: flex;
+  justify-content: column;
+  align-items: center;
+  min-height: 100vh;
+  background-image:  linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../Media/Background.png');
+  flex-direction: column;
+  margin: 0;
+  overflow: hidden;
+  padding: 20px 0 0 0;
+}
+
+.container {
+  position: relative;
+  width: 1400px;
+  padding: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+
+.container .card {
+  position: relative;
+  width: 300px;
+  height: 420px;
+  background-color: #fff;
+  margin: 20px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, .2);
+  transition: .3s ease-in-out;
+  border: 2px solid #2b2b2b;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* Sketchy shape */
+  box-shadow: 3px 4px 0px rgba(0,0,0,0.1);
+
+}
+.container:hover .card {
+  filter: blur(20px);
+  transform: scale(.9);
+  opacity: .5;
+}
+
+.container .card:hover {
+  filter: blur(0);
+  transform: scale(1);
+  opacity: 1;
+}
+
+.container .card:hover .circle {
+  clip-path: circle(600px);
+}
+
+.container .card:hover .content p {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.container .card:hover .content a {
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, .2),
+              -1px -1px 2px rgba(255, 255, 255, .4);
+}
+.container .card:hover .circle h2 {
+  visibility: hidden;
+}
+
+.container .card .content a:active {
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, .1),
+              inset 5px 5px 5px rgba(0, 0, 0, .04),
+              inset -5px -5px 5px rgba(255, 255, 255, .07),
+              inset -1px -1px 2px rgba(255, 255, 255, .4);
+}
+
+.container .card .circle {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  clip-path: circle(180px at center 0);
+  text-align: center;
+  transition: 1s ease-in-out;
+}
+
+.container .card:nth-child(1) .circle h2 {
+  color: #E3BEA5;
+  -webkit-text-stroke: 1px #000000; /* Dark outline */
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
+  font-size: 2.5em;
+  padding: 30px 0;
+}
+.container .card:nth-child(2) .circle h2 {
+  color: #5a9388;
+  -webkit-text-stroke: 1px #000000; /* Dark outline */
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
+  font-size: 2.5em;
+  padding: 30px 0;
+}
+.container .card:nth-child(3) .circle h2 {
+  color: #a8674f;
+  -webkit-text-stroke: 1px #000000; /* Dark outline */
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
+  font-size: 2.5em;
+  padding: 30px 0;
+}
+.container .card:nth-child(4) .circle h2 {
+  color: #436c85;
+  -webkit-text-stroke: 1px #000000; /* Dark outline */
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
+  font-size: 2.5em;
+  padding: 30px 0;
+}
+.container .card .content {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+.container .card .content p {
+  color: #666;
+  transition: .5s ease-in-out;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.container .card .content a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  background: #000;
+  color: #000000;
+  border-radius: 40px;
+  text-decoration: none;
+  margin-top: 20px;
+  transition: .8s ease-in-out;
+}
+.container .card .content a {
+  background: #E3BEA5;
+  -webkit-text-stroke: 2px #2b2b2b; /* Dark outline */
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
+}
+.container .card:nth-child(1) .circle {
+  background: url('../Media/Whack-a-Mole-icon.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.container .card:nth-child(2) .circle {
+  background: url('../Media/Memory-Match_Icon.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.container .card:nth-child(3) .circle {
+  background: url('../Media/RPS_Icon.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.container .card:nth-child(4) .circle {
+  background: url('../Media/Guess-the-Number-icon.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.container .card:nth-child(2) .content a {
+  background: #5a9388;
+}
+
+.container .card:nth-child(3) .content a {
+  background: #a8674f;
+}
+.container .card:nth-child(4) .content a {
+  background: #436c85;
+}
+
+@keyframes colorChange {
+  0% {
+    color: #fff;
+  }
+
+  50% {
+    color: #b1b493;
+  }
+
+  80% {
+    color: #4f8a8b;
+  }
+
+  100% {
+    color: #fff;
+  }
+}
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;  
+    margin-bottom: 20px;  
+    width: 100%;
+}
+
+.main-action-btn {
+    display: inline-block;
+    font-family: 'Balsamiq Sans', cursive;
+    font-size: 1.4rem;
+    color: #2b2b2b;
+    text-decoration: none;
+    background-color: #fdd835; /* Cheerful yellow */
+    padding: 12px 40px;
+    border: 2px solid #2b2b2b;
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* Sketchy shape */
+    box-shadow: 3px 4px 0px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.main-action-btn:hover {
+    background-color: #fce05f;
+    transform: translateY(-2px);
+    box-shadow: 5px 6px 0px rgba(0,0,0,0.1);
+}
+
+.main-action-btn:active {
+    transform: scale(0.96) translateY(2px);
+    box-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+}
+
+/* =======================Responsive Breakpoint ========================== */
+
+@media only screen and (max-width: 992px) {
+  /* Add responsive styles for max-width 992px */
+}
+
+@media only screen and (max-width: 768px) {
+  /* Add responsive styles for max-width 768px */
+}
+>>>>>>> e5fd21e38184c36bf688f20208b69d6f43aa64e9

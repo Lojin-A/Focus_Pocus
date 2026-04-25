@@ -1,0 +1,123 @@
+body {
+    background-color: #fdfbf7;
+    background-image: radial-gradient(#d3d3d3 1px, transparent 1px);
+    background-size: 20px 20px;
+    font-family: 'Patrick Hand', cursive;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    
+    /* THE FIX: Changed from height to min-height */
+    min-height: 100vh; 
+    box-sizing: border-box;
+}
+
+.home-button {
+    position: fixed;
+    top: 15px;
+    left: 60px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.home-button img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.home-button:hover {
+    transform: scale(1.1);
+}
+
+.home-button:hover img {
+    filter: drop-shadow(0 0 5px rgba(79, 128, 111, 0.5));
+}
+
+.paper-box {
+    background-color: white;
+    border: 3px solid #333;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; 
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+}
+
+.profile-tags-container {
+    display: flex;
+    justify-content: center; /* Centers the tags on the screen */
+    gap: 30px;               /* Puts space between the name and email */
+    margin-bottom: 30px;
+    flex-wrap: wrap;         /* Lets them stack on small phones */
+}
+
+/* 1. UPDATE YOUR EXISTING TAG RULE */
+.tag {
+    display: flex;       /* This puts the image and text on the same line */
+    align-items: center; /* This perfectly centers them vertically */
+    gap: 12px;           /* This adds a nice gap so the picture doesn't touch the text */
+    padding: 10px 30px;
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* 2. ADD THIS BRAND NEW RULE */
+.tag-icon {
+    width: 45px;         /* This keeps it tiny! Adjust up or down if needed. */
+    height: 45px;
+    object-fit: cover;   /* Prevents the image from looking squished */
+    border-radius: 50%;  /* Optional: Makes the picture a perfect circle! */
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr 1fr;    
+    gap: 20px;
+    flex-grow: 1; 
+    min-height: 0; 
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.chart-area {
+    flex-grow: 1; 
+    width: 100%;
+}
+
+.info-area {
+    text-align: center;
+    border-top: 2px dashed #ccc; 
+    padding-top: 10px;
+}
+
+.info-area h3 {
+    margin: 0 0 5px 0;
+    font-size: 26px;
+    color: #333;
+}
+
+.info-area p {
+    margin: 0;
+    font-size: 20px;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    body { height: auto; }
+    .dashboard-grid {
+        grid-template-columns: 1fr; 
+    }
+    .profile-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
