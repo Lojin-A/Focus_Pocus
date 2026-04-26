@@ -2,7 +2,11 @@ const cards = document.querySelectorAll(".card"),
 timeTag = document.querySelector(".time b"),
 flipsTag = document.querySelector(".flips b"),
 refreshBtn = document.querySelector(".details button");
-
+//const flipSound = new Audio('../Assets/Sounds/flip.mp3');
+const matchSound= new Audio('../Assets/Sounds/match.mp3');
+const wrongSound = new Audio('../Assets/Sounds/wrong.mp3');
+const winSound = new Audio('../Assets/Sounds/win.mp3');
+const ringSound= new Audio('../Assets/Sounds/ring.mp3');
 let maxTime = 0;
 let timeLeft = maxTime;
 let flips = 0;
@@ -13,6 +17,8 @@ let cardOne, cardTwo, timer;
 
 function initTimer() {
     if(timeLeft >= 120) {
+        ringSound.play();
+        endGame(false);
         return clearInterval(timer);
     }
     timeLeft++;
@@ -28,6 +34,9 @@ function flipCard({target: clickedCard}) {
         flips++;
         flipsTag.innerText = flips;
         clickedCard.classList.add("flip");
+        //flipSound.pause();
+        //flipSound.currentTime = 0;
+       // flipSound.play();
         if(!cardOne) {
             return cardOne = clickedCard;
         }
@@ -42,7 +51,10 @@ function flipCard({target: clickedCard}) {
 function matchCards(img1, img2) {
     if(img1 === img2) {
         matchedCard++;
+        matchSound.play();
         if(matchedCard == 6 && timeLeft < 120) {
+            winSound.play();
+            endGame(true);
             return clearInterval(timer);
         }
         cardOne.removeEventListener("click", flipCard);
@@ -52,6 +64,7 @@ function matchCards(img1, img2) {
     }
 
     setTimeout(() => {
+        wrongSound.play();
         cardOne.classList.add("shake");
         cardTwo.classList.add("shake");
     }, 400);
@@ -63,6 +76,23 @@ function matchCards(img1, img2) {
         disableDeck = false;
     }, 1200);
 }
+function endGame(isWin) {
+    isPlaying = false;
+    cards.forEach(card => {
+        card.removeEventListener("click", flipCard);
+    });
+    const modal = document.getElementById('game-over-modal');
+    const modalTitle = modal.querySelector('h2');
+    const finalScore = document.getElementById('final-score');
+    
+    if(isWin) {
+        modalTitle.textContent = 'Win!';
+finalScore.innerHTML = `Time: ${timeLeft}s &nbsp;&nbsp; | &nbsp;&nbsp; Flips: ${flips}`;    } else {
+       modalTitle.textContent= 'Time\'s Up!';
+       finalScore.innerHTML = `Score: ${matchedCard}/6 &nbsp;&nbsp;|&nbsp;&nbsp; Flips: ${flips}`;
+    }
+     modal.classList.remove('hidden');
+     }
 
 function shuffleCard() {
     timeLeft = maxTime;
@@ -84,12 +114,26 @@ function shuffleCard() {
         }, 500);
         card.addEventListener("click", flipCard);
     });
+    const modal = document.getElementById('game-over-modal');
+    modal.classList.add('hidden');
 }
 
-shuffleCard();
+
 
 refreshBtn.addEventListener("click", shuffleCard);
 
-cards.forEach(card => {
-    card.addEventListener("click", flipCard);
-});
+const playAgainBtn = document.getElementById('play-again-btn');
+const modalHomeBtn = document.getElementById('modal-home-btn');
+
+if(playAgainBtn) {
+    playAgainBtn.addEventListener('click', () => {
+        shuffleCard();
+    });
+}
+
+if(modalHomeBtn){
+    modalHomeBtn.addEventListener('click', () => {
+        window.location.href = '../index.html';
+    });
+}
+shuffleCard();
