@@ -1,6 +1,7 @@
 
 /* ==========================Font========================== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
 
 @font-face {
   font-family: 'robotoregular';
@@ -134,34 +135,26 @@ body {
   text-align: center;
   transition: 1s ease-in-out;
 }
-
-.container .card:nth-child(1) .circle h2 {
-  color: #E3BEA5;
-  -webkit-text-stroke: 1px #000000; /* Dark outline */
+.container .card .circle h2 {
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  -webkit-text-stroke: 1px #312a2a; /* Dark outline */
   text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
   font-size: 2.5em;
-  padding: 30px 0;
+  padding: 40px 0;
+}
+.container .card:nth-child(1) .circle h2 {
+  color: #E3BEA5;
 }
 .container .card:nth-child(2) .circle h2 {
   color: #5a9388;
-  -webkit-text-stroke: 1px #000000; /* Dark outline */
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
-  font-size: 2.5em;
-  padding: 30px 0;
 }
 .container .card:nth-child(3) .circle h2 {
   color: #a8674f;
-  -webkit-text-stroke: 1px #000000; /* Dark outline */
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
-  font-size: 2.5em;
-  padding: 30px 0;
 }
 .container .card:nth-child(4) .circle h2 {
   color: #436c85;
-  -webkit-text-stroke: 1px #000000; /* Dark outline */
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
-  font-size: 2.5em;
-  padding: 30px 0;
 }
 .container .card .content {
   position: absolute;
