@@ -4,7 +4,7 @@ google.charts.setOnLoadCallback(drawAllCharts);
 function drawAllCharts() {
 
     // ==========================================
-    // HELPER 1: Draws any Pie Chart we want
+    // Draws any Pie Chart we want
     // ==========================================
     function makePieChart(elementId, chartTitle, chartColors, chartData) {
         var data = google.visualization.arrayToDataTable(chartData);
@@ -21,7 +21,7 @@ function drawAllCharts() {
     }
 
     // ==========================================
-    // HELPER 2: Draws any Bar Chart we want
+    // Draws any Bar Chart we want
     // ==========================================
     function makeBarChart(elementId, chartTitle, chartData) {
         var data = google.visualization.arrayToDataTable(chartData);
@@ -38,9 +38,6 @@ function drawAllCharts() {
         chart.draw(data, options);
     }
 
-    // ==========================================
-    // NOW WE JUST CALL THE HELPERS! (So clean!)
-    // ==========================================
 
     // Chart 1: NumGuess Pro
     makePieChart('piechart1', 'Win/Loss Ratio', ['#ffd166', '#ef476f'], [
@@ -50,10 +47,12 @@ function drawAllCharts() {
     ]);
 
     // Chart 2: Whack-a-Mole
-    makeBarChart('piechart2', 'Player Stats', [
+    makeBarChart('piechart2', 'Whack-a-Mole Stats', [
         ['Stats', 'Amount', { role: 'style' }],
-        ['High Score', 150, '#90c2e7'],
-        ['Total Played', 8, '#ffd166']
+        ['High Score', whackData.highScore, '#90c2e7'], 
+        ['Played', whackData.played, '#ffd166'],     
+        ['Wins', whackData.wins, '#06d6a0'],         
+        ['Losses', whackData.losses, '#ef476f']     
     ]);
 
     // Chart 3: Memory Match

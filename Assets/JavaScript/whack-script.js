@@ -57,8 +57,29 @@ $(document).ready(function() {
         clearInterval(moleTimer); 
         $('.mole-img').attr('src', '../Assets/Media/hole-empty.png').removeClass('active');
         $('#start-btn').text('Play New Game!');
-        $('#final-score').text(score);
+        
+        if (score === 0) {
+            $('#final-score').html("YOU LOST! Too slow!<br>Final Score: " + score);
+            
+        } else {
+            $('#final-score').html("Great job!<br>Final Score: " + score);
+        }
+
         $('#game-over-modal').removeClass('hidden');
+        $.ajax({
+            type: "POST",
+            url: "../Actions/save_score.php", 
+            data: {
+                game: "Whack-a-Mole",
+                score: score
+            },
+            success: function(response) {
+                console.log("Score successfully sent to the vault!", response);
+            },
+            error: function() {
+                console.log("Oh no, the waiter dropped the score!");
+            }
+        });
     }
 
     $('#play-again-btn').click(function() {
