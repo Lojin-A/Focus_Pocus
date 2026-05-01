@@ -1,26 +1,34 @@
 <?php
-$host = 'localhost';
-$user = 'root';
-$dbname = 'focus_pocus_db'; 
 
-// Our list of passwords to try
-$passwords = ["", "lomysql*123"]; 
-$conn = null;
-$connected = false;
-foreach ($passwords as $pass) {
-    try {
-        $conn = new mysqli($host, $user, $pass, $dbname);
-        $connected = true; 
-        break; 
-        
-    } catch (mysqli_sql_exception $e) {
+class Database {
+    private $host = "localhost";
+    private $username = "root";
+    private $passwords = ["", "Ja252267@&", "lomysql*123"]; 
+    private $dbname = "focus_pocus_db";
+    public $conn;
+
+    public function connect() {
+        $connected = false;
+        foreach ($this->passwords as $pass) {
+            try {
+                $this->conn = new mysqli(
+                    $this->host,
+                    $this->username,
+                    $pass,
+                    $this->dbname
+                );
+                
+                $connected = true;
+                break;
+                
+            } catch (mysqli_sql_exception $e) {
+            }
+        }
+        if (!$connected || $this->conn->connect_error) {
+            die("Connection Failed: Please check your database settings.");
+        }
+       
+        return $this->conn;
     }
 }
-
-// Check if ALL passwords failed
-if (!$connected) {
-    die("Connection failed for everyone. None of the passwords worked.");
-}
-// Test message - we will delete this once you confirm it works!
-echo "Connection Successful to Focus Pocus DB!";
 ?>
