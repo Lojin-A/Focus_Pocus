@@ -70,8 +70,10 @@ $(document).ready(function() {
             type: "POST",
             url: "../Actions/save_score.php", 
             data: {
+                user_id: realUserId, 
                 game: "Whack-a-Mole",
-                score: score
+                score: score,
+                is_win: isWin ? 1 : 0 
             },
             success: function(response) {
                 console.log("Score successfully sent to the vault!", response);

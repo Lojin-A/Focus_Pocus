@@ -92,6 +92,23 @@ finalScore.innerHTML = `Time: ${timeLeft}s &nbsp;&nbsp; | &nbsp;&nbsp; Flips: ${
        finalScore.innerHTML = `Score: ${matchedCard}/6 &nbsp;&nbsp;|&nbsp;&nbsp; Flips: ${flips}`;
     }
      modal.classList.remove('hidden');
+     $.ajax({
+        type: "POST",
+        url: "../Actions/save_score.php", 
+        data: {
+            user_id: realUserId, 
+            game: "memory",
+            score: flips,
+            time: timeLeft,
+            is_win: isWin ? 1 : 0
+        },
+        success: function(response) {
+            console.log("Memory score successfully sent to the vault!", response);
+        },
+        error: function() {
+             console.log("Oh no, the waiter dropped the score!");
+            }
+        });
      }
 
 function shuffleCard() {

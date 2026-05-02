@@ -1,10 +1,15 @@
 <?php
+session_start(); 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../login.php"); 
+    exit();
+}
 require_once '../Includes/db_connect.php'; 
 
 $database = new Database();
 $conn = $database->connect();
 
-$current_user_id = 1; 
+$current_user_id = $_SESSION['user_id'];
 
 $stmt = $conn->prepare("SELECT username, email FROM users WHERE user_id = ?");
 $stmt->bind_param("i", $current_user_id);
@@ -19,10 +24,12 @@ $display_email = $user_data ? htmlspecialchars($user_data['email']) : "No email 
 // Put your file game here after mine and then create thier object!!!
 // ==========================================
 require_once '../Actions/WhackStats.php'; 
-
 $whackObj = new WhackStats($conn);
-
 $whackData = $whackObj->getStats($current_user_id);
+
+require_once '../Actions/MemoryStats.php'; 
+$memoryObj = new MemoryStats($conn);
+$memoryData = $memoryObj->getStats($current_user_id);
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +82,7 @@ $whackData = $whackObj->getStats($current_user_id);
             <div id="piechart3" class="chart-area"></div>
             <div class="info-area">
                 <h3>🃏 Memory Match</h3>
-                <p>Total Played: 12 | Fewest Flips: 10</p>
+                <p>Total Played: <?php echo $memoryData['played']; ?> | Fewest Flips: <?php echo $memoryData['fewest_flips']; ?></p>
             </div>
         </div>
 
@@ -96,6 +103,14 @@ $whackData = $whackObj->getStats($current_user_id);
             losses: <?php echo $whackData['losses']; ?>,
             highScore: <?php echo $whackData['high']; ?>
         };
+
+        const memoryData = {
+        played: <?php echo $memoryData['played']; ?>,
+        wins: <?php echo $memoryData['wins']; ?>,
+        losses: <?php echo $memoryData['losses']; ?>,
+        fewestFlips: <?php echo $memoryData['fewest_flips']; ?>,
+        bestTime: <?php echo $memoryData['best_time']; ?>
+    };
     </script>
 
     <script src="../Assets/JavaScript/account-script.js"></script>
