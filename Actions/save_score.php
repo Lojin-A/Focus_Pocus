@@ -1,44 +1,22 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "focus_pocus_db";
+require_once __DIR__ . '/../Includes/db_connect.php';
+$db = new Database();
+$conn = $db->connect();
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$user_id = $_POST['user_id'];
+$game = $_POST['game']; // e.g., 'memory'
+$new_score = $_POST['score']; // For memory, this would be flips
+$new_time = $_POST['time'];  // Only for memory match
 
-if ($conn->connect_error) {
-    die(json_encode(["status" => "error", "message" => "Connection failed"]));
-}
-
-$game = $_POST['game'] ?? '';
-$user_id = 1; // Hardcoded to your test user (ID: 1) until you build a login system
-
-if ($game === 'Whack-a-Mole') {
-    $score = $_POST['score'];
-    $stmt = $conn->prepare("INSERT INTO score_whack (user_id, score) VALUES (?, ?)");
-    $stmt->bind_param("ii", $user_id, $score);
-    $stmt->execute();
-} 
-elseif ($game === 'Guess the Number') {
-    $attempts = $_POST['score'];
-    $stmt = $conn->prepare("INSERT INTO score_guess (user_id, attempts) VALUES (?, ?)");
-    $stmt->bind_param("ii", $user_id, $attempts);
-    $stmt->execute();
-} 
-elseif ($game === 'Memory Match') {
-    $time = $_POST['score'];
-    $flips = $_POST['flips'];
-    $stmt = $conn->prepare("INSERT INTO score_memory (user_id, time_elapsed, flips) VALUES (?, ?, ?)");
-    $stmt->bind_param("iii", $user_id, $time, $flips);
-    $stmt->execute();
-} 
-elseif ($game === 'Rock Paper Scissors') {
-    $score = $_POST['score'];
-    $stmt = $conn->prepare("INSERT INTO score_rps (user_id, player_score) VALUES (?, ?)");
-    $stmt->bind_param("ii", $user_id, $score);
+if ($game == 'memory') {
+    $stmt = $conn->prepare("INSERT INTO score_memory (user_id, total_played, fewest_flips, best_time_seconds) 
+        VALUES (?, 1, ?, ?) 
+        ON DUPLICATE KEY UPDATE 
+        total_played = total_played + 1,
+        fewest_flips = CASE WHEN ? < fewest_flips OR fewest_flips = 0 THEN ? ELSE fewest_flips END,
+        best_time_seconds = CASE WHEN ? < best_time_seconds OR best_time_seconds = 0 THEN ? ELSE best_time_seconds END");
+    $stmt->bind_param("iiiiiiii", $user_id, $new_score, $new_time, $new_score, $new_score, $new_time, $new_time);
     $stmt->execute();
 }
-
-echo json_encode(["status" => "success"]);
-$conn->close();
+// Add similar blocks for other games here...
 ?>

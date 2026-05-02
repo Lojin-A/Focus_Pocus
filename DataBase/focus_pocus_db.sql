@@ -10,14 +10,18 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 2. Weekly Voting Table 
-CREATE TABLE weekly_votes (
-    vote_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    game_name VARCHAR(50),
-    voted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+-- 2. Game's Likes 
+CREATE TABLE game_likes (
+    game_name VARCHAR(50) PRIMARY KEY,
+    likes INT DEFAULT 0
 );
+
+-- Initialize the counts for your cards
+INSERT IGNORE INTO game_likes (game_name, likes) VALUES
+('Whack-a-Mole', 0),
+('Memory Match', 0),
+('Rock Paper Scissors', 0),
+('Guess the Number', 0);
 
 -- 3. Whack-a-Mole Scores 
 CREATE TABLE score_whack (

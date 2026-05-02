@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +5,7 @@
     <title>Focus Pocus - Global Leaderboards</title>
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../Assets/CSS/leaderboard.css">
+    <!-- Include jQuery for AJAX -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -14,54 +13,50 @@
 
     <div class="leaderboard-wrapper">
         
+        <!-- Game 1: Whack-a-Mole -->
         <div class="game-card">
             <div class="card-header">
                 <h2>Whack-a-Mole</h2>
-                <button class="vote-btn" value="Whack-a-Mole">Vote!</button>
             </div>
-            <ol class="top-players">
-                <?php while($row = $whackScores->fetch_assoc()): ?>
-                    <li><span><?= $row['username'] ?></span> <span><?= $row['score'] ?> pts</span></li>
-                <?php endwhile; ?>
+            <!-- The ID allows AJAX to find exactly where to put the list -->
+            <ol id="whack-list" class="top-players">
+                <li>Loading scores...</li>
             </ol>
         </div>
 
+        <!-- Game 2: Guess the Number -->
         <div class="game-card">
             <div class="card-header">
                 <h2>Guess the Number</h2>
-                <button class="vote-btn" value="Guess the Number">Vote!</button>
             </div>
-            <ol class="top-players">
-                <?php while($row = $guessScores->fetch_assoc()): ?>
-                    <li><span><?= $row['username'] ?></span> <span><?= $row['attempts'] ?> tries</span></li>
-                <?php endwhile; ?>
+            <ol id="guess-list" class="top-players">
+                <li>Loading scores...</li>
             </ol>
         </div>
 
+        <!-- Game 3: Memory Match -->
         <div class="game-card">
             <div class="card-header">
                 <h2>Memory Match</h2>
             </div>
-            <ol class="top-players">
-                <?php while($row = $memoryScores->fetch_assoc()): ?>
-                    <li><span><?= $row['username'] ?></span> <span><?= $row['time_elapsed'] ?>s</span></li>
-                <?php endwhile; ?>
+            <ol id="memory-list" class="top-players">
+                <li>Loading scores...</li>
             </ol>
         </div>
 
+        <!-- Game 4: Rock Paper Scissors -->
         <div class="game-card">
             <div class="card-header">
                 <h2>RPS Battle</h2>
             </div>
-            <ol class="top-players">
-                <?php while($row = $rpsScores->fetch_assoc()): ?>
-                    <li><span><?= $row['username'] ?></span> <span><?= $row['player_score'] ?> wins</span></li>
-                <?php endwhile; ?>
+            <ol id="rps-list" class="top-players">
+                <li>Loading scores...</li>
             </ol>
         </div>
 
     </div>
 
-    <script src="../Assets/JavaScript/voting.js"></script>
+    <!-- The Messenger that connects to fetch_leaderboard.php -->
+    <script src="../Assets/JavaScript/leaderboard.js"></script>
 </body>
 </html>
