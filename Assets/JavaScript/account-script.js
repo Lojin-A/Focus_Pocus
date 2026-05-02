@@ -56,10 +56,13 @@ function drawAllCharts() {
     ]);
 
     // Chart 3: Memory Match
-    makeBarChart('piechart3', 'Matching Efficiency', [
+    makeBarChart('piechart3', 'Memory Match Stats', [
         ['Stats', 'Amount', { role: 'style' }],
-        ['Total Played', 12, '#ffd166'],
-        ['Fewest Flips', 10, '#06d6a0']
+        ['Played', memoryData.played, '#ffd166'],
+        ['Wins', memoryData.wins, '#06d6a0'],
+        ['Losses', memoryData.losses, '#ef476f'],
+        ['Best Time', memoryData.bestTime, '#118ab2'],
+        ['Fewest Flips', memoryData.fewestFlips, '#90c2e7']
     ]);
 
     // Chart 4: Rock Paper Scissors
