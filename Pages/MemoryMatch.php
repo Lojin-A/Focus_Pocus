@@ -16,6 +16,7 @@ $current_user_id = $_SESSION['user_id'];
     <title>Memory Card Game</title>
     <link rel="stylesheet" href="../Assets/css/style-mc.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
     <a href="../index.php" class="home-button">
