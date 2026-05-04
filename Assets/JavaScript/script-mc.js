@@ -150,7 +150,7 @@ if(playAgainBtn) {
 
 if(modalHomeBtn){
     modalHomeBtn.addEventListener('click', () => {
-        window.location.href = '../index.html';
+        window.location.href = '../index.php';
     });
 }
 shuffleCard();
