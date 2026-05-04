@@ -30,8 +30,11 @@ $whackData = $whackObj->getStats($current_user_id);
 require_once '../Actions/MemoryStats.php'; 
 $memoryObj = new MemoryStats($conn);
 $memoryData = $memoryObj->getStats($current_user_id);
-?>
 
+require_once '../Actions/GuessStats.php';
+$guessObj = new GuessStats($conn);
+$guessData = $guessObj->getStats($current_user_id);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,12 +66,14 @@ $memoryData = $memoryObj->getStats($current_user_id);
     <div class="dashboard-grid">
         
         <div class="card paper-box">
-            <div id="piechart1" class="chart-area"></div>
-            <div class="info-area">
-                <h3>✨ NumGuess Pro</h3>
-                <p>Total Played: 15 | Fewest Guesses: 3</p>
-            </div>
-        </div>
+    <div id="piechart1" class="chart-area"></div>
+    <div class="info-area">
+        <h3>✨ NumGuess Pro</h3>
+        <p>
+            Total Played: <?php echo $guessData['played']; ?> | Fewest Guesses: <?php echo ($guessData['fewest'] == 0); ?>
+        </p>
+    </div>
+</div>
 
         <div class="card paper-box">
             <div id="piechart2" class="chart-area"></div>
@@ -111,6 +116,11 @@ $memoryData = $memoryObj->getStats($current_user_id);
         fewestFlips: <?php echo $memoryData['fewest_flips']; ?>,
         bestTime: <?php echo $memoryData['best_time']; ?>
     };
+
+     const guessData = {
+     played: <?php echo $guessData['played']; ?>,
+     fewest: <?php echo $guessData['fewest']; ?>
+     };
     </script>
 
     <script src="../Assets/JavaScript/account-script.js"></script>

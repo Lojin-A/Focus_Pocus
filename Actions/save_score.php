@@ -85,4 +85,34 @@ if ($game == 'Whack-a-Mole') {
         $update_stmt->execute();
     }
 }
+
+// ==========================================
+// 3. LOGIC FOR GUESS THE NUMBER
+// ==========================================
+if ($game == 'Guess the Number') {
+
+    $attempts = $_POST['score'];
+
+    $check_stmt = $conn->prepare("SELECT fewest_attempts FROM score_guess WHERE user_id = ?");
+    $check_stmt->bind_param("i", $user_id);
+    $check_stmt->execute();
+    $result = $check_stmt->get_result();
+
+    if ($result->num_rows == 0) {
+        $insert_stmt = $conn->prepare("INSERT INTO score_guess (user_id, total_played, fewest_attempts) VALUES (?, 1, ?)");
+        $insert_stmt->bind_param("ii", $user_id, $attempts);
+        $insert_stmt->execute();
+    } else {
+        $row = $result->fetch_assoc();
+        $best_attempts = $row['fewest_attempts'];
+
+        if ($best_attempts == 0 || $attempts < $best_attempts) {
+            $best_attempts = $attempts;
+        }
+
+        $update_stmt = $conn->prepare("UPDATE score_guess SET total_played = total_played + 1, fewest_attempts = ? WHERE user_id = ?");
+        $update_stmt->bind_param("ii", $best_attempts, $user_id);
+        $update_stmt->execute();
+    }
+}
 ?>
