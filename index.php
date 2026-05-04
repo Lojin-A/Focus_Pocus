@@ -1,4 +1,8 @@
-<?php include 'Actions/index_data.php'; ?>
+<?php 
+session_start();
+include 'Actions/index_data.php'; 
+?>
+<?php include 'Actions/login-signup.php'; ?>
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -8,10 +12,23 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css">
 </head>
 <body>
-<!--partial:index.partial.html -->
- <a href="Pages/login-signup.html" class="Myaccount-button">
-        <img src="Assets/Media/MyAccount_Icon.png" alt="My Account">
+<div id="account-section">
+    <a href="Pages/leaderboard.php" class="Muaccount-button">
+        <img src="Assets/Media/Leaderboard.png" alt="Leaderboard">
     </a>
+    <?php if (isset($_SESSION['user_id'])): ?>
+    <a href="Pages/MyAccount.php" class="Myaccount-button">
+        <img src="Assets/Media/MyAccount_Icon .png" alt="My Account">
+    </a>
+    <a href="Actions/logout.php" class="logout-button">
+        <img src="Assets/Media/logout.png" alt="Logout">
+    </a>
+<?php else: ?>
+    <a href="Pages/login-signup.php" class="Myaccount-button">
+        <img src="Assets/Media/login.png" alt="Login">
+    </a>
+<?php endif; ?>
+</div>
      <h1 class="title">Focus Pocus</h1>
 <div class="container">
     <!-- Card 1: Whack-a-Mole -->
@@ -22,7 +39,7 @@
         <div class="content">
             <div class="icon-container">
                  <p>Test your reflexes and smash those moles before they disappear!</p>
-                <a href="Pages/whack-a-mole.html" class="btn-rps"> Play Now</a>
+                <a href="Pages/whack-a-mole.php" class="btn-rps"> Play Now</a>
                 <button class="like-btn" data-game="Whack-a-Mole">
                     <i class="fa-solid fa-heart"></i><span class="count"><?= $likes['Whack-a-Mole'] ?? 0 ?></span>
                 </button>
