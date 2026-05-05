@@ -1,10 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php"); 
-    exit();
+if (isset($_SESSION['user_id'])) {
+    $current_user_id = $_SESSION['user_id'];
+} else {
+    $current_user_id = 'null';
 }
-$current_user_id = $_SESSION['user_id']; 
 ?>
 
 <!DOCTYPE html>
