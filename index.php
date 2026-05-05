@@ -22,7 +22,7 @@
         <div class="content">
             <div class="icon-container">
                  <p>Test your reflexes and smash those moles before they disappear!</p>
-                <a href="Pages/whack-a-mole.html" class="btn-rps"> Play Now</a>
+                <a href="Pages/whack-a-mole.php" class="btn-rps"> Play Now</a>
                 <button class="like-btn" data-game="Whack-a-Mole">
                     <i class="fa-solid fa-heart"></i><span class="count"><?= $likes['Whack-a-Mole'] ?? 0 ?></span>
                 </button>
