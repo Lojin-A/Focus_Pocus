@@ -71,7 +71,7 @@ include 'Actions/index_data.php';
         <div class="content">
             <div class="icon-container">
             <p>Challenge the computer in this classic game!</p>
-            <a href="Pages/RPSGame.html" class="btn-rps">Play Now</a>
+            <a href="Pages/RPSGame.php" class="btn-rps">Play Now</a>
             <button class="like-btn" data-game="Rock Paper Scissors">
                 <i class="fa-solid fa-heart"></i><span class="count"><?= $likes['Rock Paper Scissors'] ?? 0 ?></span>
             </button>

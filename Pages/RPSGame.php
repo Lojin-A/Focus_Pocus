@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (isset($_SESSION['user_id'])) {
+    $current_user_id = $_SESSION['user_id'];
+} else {
+    $current_user_id = 'null';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +17,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<a href="../index.php" class="home-button">
+    <div id="effect-container"></div>
+
+    <a href="../index.php" class="home-button">
         <img src="../Assets/Media/home-icon.png" alt="Home">
     </a>
+    
     <div class="game-container">
         <h1>Rock Paper Scissors</h1>
         
@@ -18,6 +30,7 @@
             <h3>Best of 3</h3>
             <p>You: <span id="player-score">0</span> | Computer: <span id="comp-score">0</span></p>
         </div>
+         <hr class="sketch-line">
 
         <div class="choices">
             <button class="image-btn" id="rock">
@@ -35,9 +48,13 @@
             <h2 id="result-text">Make your move!</h2>
             <p id="choice-details"></p>
         </div>
-       <hr class="sketch-line">
+        
+       
     </div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+       const realUserId = <?php echo $current_user_id; ?>;
+    </script>
     <script src="../Assets/JavaScript/RPS-script.js"></script>
 </body>
 </html>

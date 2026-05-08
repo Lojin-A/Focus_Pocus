@@ -14,7 +14,7 @@ $order = ($game == 'memory') ? 'ASC' : 'DESC'; // Lower time is better for memor
 
 $query = "SELECT u.username, s.* 
           FROM $table s 
-          JOIN users u ON s.user_id = u.id 
+          JOIN users u ON s.user_id = u.user_id
           ORDER BY $stat_column $order LIMIT 10";
 $result = $conn->query($query);
 ?>

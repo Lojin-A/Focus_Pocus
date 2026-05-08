@@ -1,30 +1,34 @@
 let playerScore = 0;
 let compScore = 0;
 const choices = ['rock', 'paper', 'scissors'];
+const winSound = new Audio('../Assets/Sounds/happygame.mp3');
+const loseSound = new Audio('../Assets/Sounds/sadgame.mp3');
 
-// Attach click events to the image buttons
-document.querySelectorAll('.image-btn').forEach(button => {
-    button.addEventListener('click', () => playRound(button.id));
+$(document).ready(function() {
+    $('.image-btn').click(function() {
+        playRound(this.id);
+    });
 });
 
 function playRound(playerChoice) {
     const compChoice = choices[Math.floor(Math.random() * choices.length)];
-    const resultText = document.getElementById('result-text');
-    const choiceDetails = document.getElementById('choice-details');
+    const $resultText = $('#result-text');
+    const $choiceDetails = $('#choice-details');
 
-    choiceDetails.innerText = `You chose ${playerChoice.toUpperCase()}. Computer chose ${compChoice.toUpperCase()}.`;
+    $choiceDetails.text(`You chose ${playerChoice.toUpperCase()}. Computer chose ${compChoice.toUpperCase()}.`);
 
+    // Determine round winner
     if (playerChoice === compChoice) {
-        resultText.innerText = "IT'S A TIE!";
+        $resultText.html(`<span class="highlighter">IT'S A TIE!</span>`);
     } else if (
         (playerChoice === 'rock' && compChoice === 'scissors') ||
         (playerChoice === 'paper' && compChoice === 'rock') ||
         (playerChoice === 'scissors' && compChoice === 'paper')
     ) {
-        resultText.innerText = "YOU WIN!";
+        $resultText.html(`<span class="highlighter">YOU WIN!</span>`);
         playerScore++;
     } else {
-        resultText.innerText = "COMPUTER WINS!";
+        $resultText.html(`<span class="highlighter">COMPUTER WINS!</span>`);
         compScore++;
     }
 
@@ -33,34 +37,62 @@ function playRound(playerChoice) {
 }
 
 function updateScore() {
-    document.getElementById('player-score').innerText = playerScore;
-    document.getElementById('comp-score').innerText = compScore;
+    $('#player-score').text(playerScore);
+    $('#comp-score').text(compScore);
 }
 
 function checkMatchWinner() {
+    // Check for best of 3 winner
     if (playerScore === 2) {
-        // Using innerHTML to render the FontAwesome party horn icon
-        setTimeout(() => { showFinalScreen("MATCH WON!"); }, 400);
+        winSound.play();
+        saveRpsScore(true); 
+        createWinEffect();
+        setTimeout(() => { showFinalScreen("MATCH WON!"); }, 2000);
     } else if (compScore === 2) {
-        setTimeout(() => { showFinalScreen("MATCH LOST! "); }, 400);
+        loseSound.play();
+        saveRpsScore(false); 
+        createLoseEffect();
+        setTimeout(() => { showFinalScreen("MATCH LOST!"); }, 2000);
+    }
+}
+
+function saveRpsScore(isWin) {
+    if (typeof realUserId !== 'undefined' && realUserId !== null && realUserId !== 'null') {
+        $.ajax({
+            type: "POST",
+            url: "../Actions/save_score.php",
+            data: {
+                user_id: realUserId,
+                game: "rps",
+                score: isWin ? 1 : 0, 
+                is_win: isWin ? 1 : 0
+            },
+            success: function(response) {
+                console.log("Score successfully sent to the vault!", response);
+            },
+            error: function() {
+                console.log("Oh no, the waiter dropped the score!");
+            }
+        });
+    } else {
+        console.log("Guest Player: Score was not saved.");
     }
 }
 
 function showFinalScreen(message) {
-    // Hide the game buttons and the scoreboard
-    document.querySelector('.choices').style.display = 'none';
-    document.querySelector('.score-board').style.display = 'none';
+    // Hide game area
+    $('.choices').hide();
+    $('.score-board').hide();
 
-    // Show the final Match message (innerHTML allows the icon to render)
-    document.getElementById('result-text').innerHTML = message;
-
-    // Replace the details text with a Play Again button
-    document.getElementById('choice-details').innerHTML = `
+    // Display final result
+    $('#result-text').html(message);
+    // Render Play Again button
+    $('#choice-details').html(`
         <button onclick="resetGame()" style="
             font-family: 'Caveat', cursive;
             font-size: 2rem;
             padding: 10px 30px;
-            background-color: #ffd166;
+            background-color: #cdded5;
             border: 2px solid #2b2b2b;
             border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
             cursor: pointer;
@@ -68,7 +100,7 @@ function showFinalScreen(message) {
             color: #2b2b2b;
             box-shadow: 4px 4px 0px #2b2b2b;
         ">Play Again!</button>
-    `;
+    `);
 }
 
 function resetGame() {
@@ -76,12 +108,49 @@ function resetGame() {
     compScore = 0;
     updateScore();
 
-    // Bring back the game buttons and scoreboard
-    document.querySelector('.choices').style.display = '';
-    document.querySelector('.score-board').style.display = '';
+    // Restore game area
+    $('.choices').show();
+    $('.score-board').show();
 
-    // Reset the text areas
-    document.getElementById('result-text').innerText = "Make your move!";
-    document.getElementById('choice-details').innerText = "";
+    // Clear text
+    $('#result-text').text("Make your move!");
+    $('#choice-details').text("");
 }
 
+function createWinEffect() {
+    const $container = $('#effect-container');
+    const colors = ['#ffd166', '#ef476f', '#06d6a0', '#118ab2']; 
+
+    for (let i = 0; i < 30; i++) {
+        let $star = $('<div class="star-particle"></div>');
+        
+        // Apply random styles
+        $star.css({
+            'background-color': colors[Math.floor(Math.random() * colors.length)],
+            'left': Math.random() * 100 + 'vw',
+            'top': Math.random() * 100 + 'vh',
+            'animation-delay': Math.random() * 0.5 + 's'
+        });
+        $container.append($star);
+        // Clear DOM after animation
+        setTimeout(() => $star.remove(), 7000); 
+    }
+}
+
+function createLoseEffect() {
+    const $container = $('#effect-container');
+
+    for (let i = 0; i < 40; i++) {
+        let $rain = $('<div class="rain-particle"></div>');
+        
+        $rain.css({
+            'left': Math.random() * 100 + 'vw',
+            'animation-duration': (Math.random() * 2 + 2) + 's'
+        });
+        
+        $container.append($rain);
+        
+        // Clear DOM after animation
+        setTimeout(() => $rain.remove(), 7000);
+    }
+}

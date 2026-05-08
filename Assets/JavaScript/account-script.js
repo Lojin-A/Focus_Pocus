@@ -72,11 +72,13 @@ function drawAllCharts() {
         ['Fewest Flips', memoryData.fewestFlips, '#90c2e7']
     ]);
 
-    // Chart 4: Rock Paper Scissors
-    makePieChart('piechart4', 'Match Results', ['#90c2e7', '#ef476f', '#ffd166'], [
-        ['Result', 'Amount'], 
-        ['Wins', 12], 
-        ['Losses', 5], 
-        ['Ties', 3]
+   // Chart 4: Rock Paper Scissors
+   let tiesCount = rpsData.played - (rpsData.wins + rpsData.losses);
+   makePieChart('piechart4', 'Match Results', ['#90c2e7', '#ef476f', '#ffd166'], [
+       ['Result', 'Amount'],
+       ['Wins', rpsData.wins],
+       ['Losses', rpsData.losses],
+       ['Ties', tiesCount > 0 ? tiesCount : 0]
     ]);
+    
 }

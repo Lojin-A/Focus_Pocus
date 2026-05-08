@@ -12,6 +12,28 @@ $time = intval($_POST['time'] ?? 0);
 $win = isset($_POST['is_win']) ? 1 : 0;
 
 if ($conn = (new Database())->connect()) {
+        
+        if (isset($_POST['game']) && $_POST['game'] == 'rps') {
+            $win = isset($_POST['is_win']) && $_POST['is_win'] == 1 ? 1 : 0;
+            $loss = ($win == 0) ? 1 : 0;
+
+            $sql = "INSERT INTO score_rps (user_id, total_played, total_wins, total_losses) 
+                    VALUES (?, 1, ?, ?) 
+                    ON DUPLICATE KEY UPDATE 
+                    total_played = total_played + 1, 
+                    total_wins = total_wins + ?, 
+                    total_losses = total_losses + ?";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("iiiii", $user_id, $win, $loss, $win, $loss);
+
+            if ($stmt->execute()) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'error' => $conn->error]);
+            }
+            exit(); // 
+        }
     // This SQL creates a row if it doesn't exist, OR updates it if it does
     $sql = "INSERT INTO $table (user_id, total_played, total_wins, total_losses, fewest_flips, best_time_seconds)
             VALUES (?, 1, ?, ?, ?, ?)
