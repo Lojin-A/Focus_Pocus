@@ -1,88 +1,37 @@
 <?php
-require_once '../Includes/db_connect.php';
-$db = new Database();
-$conn = $db->connect();
+include '../Includes/db_connect.php';
+header('Content-Type: application/json');
 
-$user_id = $_POST['user_id'];
-$game = $_POST['game']; 
-$is_win = $_POST['is_win']; 
+// Assume user_id is coming from a session or a hidden field
+$user_id = $_POST['user_id'] ?? 1; // Replace with actual session user_id
+$game = $_POST['game_type'] ?? 'memory'; // e.g., 'memory', 'whack'
+$table = "score_" . $game;
 
-// ==========================================
-// 1. LOGIC FOR MEMORY MATCH
-// ==========================================
-if ($game == 'memory') {
+$flips = intval($_POST['flips'] ?? 0);
+$time = intval($_POST['time'] ?? 0);
+$win = isset($_POST['is_win']) ? 1 : 0;
+
+if ($conn = (new Database())->connect()) {
+    // This SQL creates a row if it doesn't exist, OR updates it if it does
+    $sql = "INSERT INTO $table (user_id, total_played, total_wins, total_losses, fewest_flips, best_time_seconds)
+            VALUES (?, 1, ?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE 
+                total_played = total_played + 1,
+                total_wins = total_wins + ?,
+                total_losses = total_losses + ?,
+                fewest_flips = LEAST(fewest_flips, VALUES(fewest_flips)),
+                best_time_seconds = LEAST(best_time_seconds, VALUES(best_time_seconds))";
+
+    $stmt = $conn->prepare($sql);
+    $loss = ($win == 0) ? 1 : 0;
     
-    $flips = $_POST['score'];  
-    $time = $_POST['time'];  
-
-    $add_win = ($is_win == 1) ? 1 : 0;
-    $add_loss = ($is_win == 0) ? 1 : 0;
-
-    $check_stmt = $conn->prepare("SELECT fewest_flips, best_time_seconds FROM score_memory WHERE user_id = ?");
-    $check_stmt->bind_param("i", $user_id);
-    $check_stmt->execute();
-    $result = $check_stmt->get_result();
-
-    if ($result->num_rows == 0) {
-        // If they lost their very first game, don't save their bad score as their "best"
-        $best_flips = ($is_win == 1) ? $flips : 0;
-        $best_time = ($is_win == 1) ? $time : 0;
-
-        $insert_stmt = $conn->prepare("INSERT INTO score_memory (user_id, total_played, total_wins, total_losses, fewest_flips, best_time_seconds) VALUES (?, 1, ?, ?, ?, ?)");
-        $insert_stmt->bind_param("iiiii", $user_id, $add_win, $add_loss, $best_flips, $best_time);
-        $insert_stmt->execute();
-    } 
-    else {
-        $row = $result->fetch_assoc();
-        $best_flips = $row['fewest_flips'];
-        $best_time = $row['best_time_seconds'];
-        
-        if ($is_win == 1) {
-            if ($best_flips == 0 || $flips < $best_flips) {
-                $best_flips = $flips;
-            }
-            if ($best_time == 0 || $time < $best_time) {
-                $best_time = $time;
-            }
-        }
-        
-        $update_stmt = $conn->prepare("UPDATE score_memory SET total_played = total_played + 1, total_wins = total_wins + ?, total_losses = total_losses + ?, fewest_flips = ?, best_time_seconds = ? WHERE user_id = ?");
-        $update_stmt->bind_param("iiiii", $add_win, $add_loss, $best_flips, $best_time, $user_id);
-        $update_stmt->execute();
-    }
-}
-
-// ==========================================
-// 2. LOGIC FOR WHACK-A-MOLE
-// ==========================================
-if ($game == 'Whack-a-Mole') {
+    // Bind all the parameters for both the INSERT and the UPDATE parts
+    $stmt->bind_param("iiiiiiii", $user_id, $win, $loss, $flips, $time, $win, $loss);
     
-    $score = $_POST['score']; 
-
-    $add_win = ($is_win == 1) ? 1 : 0;
-    $add_loss = ($is_win == 0) ? 1 : 0;
-
-    $check_stmt = $conn->prepare("SELECT high_score FROM score_whack WHERE user_id = ?");
-    $check_stmt->bind_param("i", $user_id);
-    $check_stmt->execute();
-    $result = $check_stmt->get_result();
-
-    if ($result->num_rows == 0) {
-        $insert_stmt = $conn->prepare("INSERT INTO score_whack (user_id, total_played, total_wins, total_losses, high_score) VALUES (?, 1, ?, ?, ?)");
-        $insert_stmt->bind_param("iiii", $user_id, $add_win, $add_loss, $score);
-        $insert_stmt->execute();
-    } 
-    else {
-        $row = $result->fetch_assoc();
-        $best_score = $row['high_score'];
-        
-        if ($score > $best_score) {
-            $best_score = $score;
-        }
-        
-        $update_stmt = $conn->prepare("UPDATE score_whack SET total_played = total_played + 1, total_wins = total_wins + ?, total_losses = total_losses + ?, high_score = ? WHERE user_id = ?");
-        $update_stmt->bind_param("iiii", $add_win, $add_loss, $best_score, $user_id);
-        $update_stmt->execute();
+    if ($stmt->execute()) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'error' => $conn->error]);
     }
 }
 ?>
