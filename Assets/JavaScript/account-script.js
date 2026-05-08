@@ -40,11 +40,18 @@ function drawAllCharts() {
 
 
     // Chart 1: NumGuess Pro
-    makePieChart('piechart1', 'Win/Loss Ratio', ['#ffd166', '#ef476f'], [
-        ['Result', 'Amount'], 
-        ['Wins', 10], 
-        ['Losses', 5]
+  if (guessData.fewest > 0) {
+    makePieChart('piechart1', 'Guess Performance', ['#06d6a0', '#ffd166'], [
+        ['Type', 'Amount'], 
+        ['Best Attempts', guessData.fewest], 
+        ['Other Plays', guessData.played - 1]
     ]);
+} else {
+    makePieChart('piechart1', 'Guess Game Activity', ['#ffd166'], [
+        ['Type', 'Amount'], 
+        ['Played', guessData.played]
+    ]);
+}
 
     // Chart 2: Whack-a-Mole
     makeBarChart('piechart2', 'Whack-a-Mole Stats', [
