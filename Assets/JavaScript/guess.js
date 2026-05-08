@@ -161,6 +161,7 @@ function handleGuess(event) {
         $giveUpBtn.addClass("hidden");
         $gameContainer.addClass("win");
         launchCelebration();
+        saveScore();
     } else if (attempts > 0) {
         $giveUpBtn.removeClass("hidden");
     }
@@ -176,3 +177,22 @@ $(function () {
 
     initGame();
 });
+
+function saveScore() {
+    $.ajax({
+        url: "../Actions/save_score.php",
+        type: "POST",
+        data: {
+            user_id: 1,
+            game: "Guess the Number",
+            is_win: 1,
+            score: attempts
+        },
+        success: function(response) {
+            console.log("Score saved");
+        },
+        error: function() {
+            console.log("Error saving score");
+        }
+    });
+}

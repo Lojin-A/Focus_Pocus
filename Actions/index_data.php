@@ -1,6 +1,5 @@
 <?php
-require_once __DIR__ . '/../Includes/db_connect.php';
-$database = new Database();
+require_once 'Includes/db_connect.php';$database = new Database();
 $conn = $database->connect();
 
 // Check if $conn is actually an object before calling query()

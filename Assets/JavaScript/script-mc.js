@@ -81,35 +81,43 @@ function endGame(isWin) {
     cards.forEach(card => {
         card.removeEventListener("click", flipCard);
     });
+    
     const modal = document.getElementById('game-over-modal');
     const modalTitle = modal.querySelector('h2');
     const finalScore = document.getElementById('final-score');
     
     if(isWin) {
         modalTitle.textContent = 'Win!';
-finalScore.innerHTML = `Time: ${timeLeft}s &nbsp;&nbsp; | &nbsp;&nbsp; Flips: ${flips}`;    } else {
-       modalTitle.textContent= 'Time\'s Up!';
-       finalScore.innerHTML = `Score: ${matchedCard}/6 &nbsp;&nbsp;|&nbsp;&nbsp; Flips: ${flips}`;
+        finalScore.innerHTML = `Time: ${timeLeft}s &nbsp;&nbsp; | &nbsp;&nbsp; Flips: ${flips}`;    
+    } else {
+        modalTitle.textContent= 'Time\'s Up!';
+        finalScore.innerHTML = `Score: ${matchedCard}/6 &nbsp;&nbsp;|&nbsp;&nbsp; Flips: ${flips}`;
     }
-     modal.classList.remove('hidden');
-     $.ajax({
-        type: "POST",
-        url: "../Actions/save_score.php", 
-        data: {
-            user_id: realUserId, 
-            game: "memory",
-            score: flips,
-            time: timeLeft,
-            is_win: isWin ? 1 : 0
-        },
-        success: function(response) {
-            console.log("Memory score successfully sent to the vault!", response);
-        },
-        error: function() {
-             console.log("Oh no, the waiter dropped the score!");
+    
+    modal.classList.remove('hidden');
+    if (realUserId !== null) {
+        $.ajax({
+            type: "POST",
+            url: "../Actions/save_score.php", 
+            data: {
+                user_id: realUserId, 
+                game: "memory",
+                score: flips,
+                time: timeLeft,
+                is_win: isWin ? 1 : 0
+            },
+            success: function(response) {
+                console.log("Memory score successfully sent to the vault!", response);
+            },
+            error: function() {
+                console.log("Oh no, the waiter dropped the score!");
             }
         });
-     }
+    } else {
+        // Just print a message to the console for guests
+        console.log("Guest Player: Memory score was not saved to the database.");
+    }
+}
 
 function shuffleCard() {
     timeLeft = maxTime;
@@ -150,7 +158,7 @@ if(playAgainBtn) {
 
 if(modalHomeBtn){
     modalHomeBtn.addEventListener('click', () => {
-        window.location.href = '../index.html';
+        window.location.href = '../index.php';
     });
 }
 shuffleCard();
