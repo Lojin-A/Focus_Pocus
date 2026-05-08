@@ -13,7 +13,7 @@ include 'Actions/index_data.php';
 </head>
 <body>
 <div id="account-section">
-    <a href="Pages/leaderboard.php" class="Muaccount-button">
+    <a href="Pages/leaderboard.php" class="Myaccount-button">
         <img src="Assets/Media/Leaderboard.png" alt="Leaderboard">
     </a>
     <?php if (isset($_SESSION['user_id'])): ?>
@@ -87,7 +87,7 @@ include 'Actions/index_data.php';
         <div class="content">
             <div class="icon-container">
             <p>Pick a number and see if you can guess the secret!</p>
-            <a href="Pages/guess.html" class="btn-rps">Play Now</a>
+            <a href="Pages/guess.php" class="btn-rps">Play Now</a>
             <button class="like-btn" data-game="Guess the Number">
                 <i class="fa-solid fa-heart"></i><span class="count"><?= $likes['Guess the Number'] ?? 0 ?></span>
             </button>
