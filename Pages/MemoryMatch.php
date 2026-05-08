@@ -8,7 +8,6 @@ if (isset($_SESSION['user_id'])) {
 }
 ?>
 <!DOCTYPE html>
-<!-- Don't Forget To Follow Me on Instagrame code_wars_official -->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">  

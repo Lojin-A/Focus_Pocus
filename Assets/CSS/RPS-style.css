@@ -1,15 +1,16 @@
 body {
-    font-family: 'Caveat', cursive; /* Marker/Handwritten font */
+    font-family: 'Caveat', cursive; 
     background-color: #fdfbf7;
-    /* Dotted background pattern */
     background-image: radial-gradient(#a0a0a0 1px, transparent 1px);
-    background-size: 30px 30px; /* This spaces out the dots */
+    background-size: 30px 30px; 
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    color: #2b2b2b; /* Dark marker ink color */
+    color: #2b2b2b; 
+    
+    /* Background Image (Overrides dotted pattern if applied) */
     background: url('../Media/background.jpg') no-repeat center center fixed;
     background-size: cover;
 }
@@ -49,34 +50,15 @@ p { font-size: 1.8rem; }
     filter: drop-shadow(0px 0px 0px #2b2b2b);
 }
 
-.vote-btn {
-    font-family: 'Caveat', cursive;
-    font-size: 2.2rem;
-    font-weight: bold;
-    margin: 10px;
-    padding: 10px 30px;
-    cursor: pointer;
-    background-color: #9acced; 
-    background-image: none; 
-    color: #2b2b2b;
-    text-shadow: none; 
-    border: 2px solid #2b2b2b; 
-    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; 
-    box-shadow: none; 
-    transition: transform 0.1s ease;
-}
-
-/* Button Click Animation */
-.vote-btn:active {
-    transform: scale(0.95); /* Shrinks slightly  */
-}
-
 .result-area {
     margin: 30px 0;
     min-height: 120px;
 }
 
-#result-text { font-size: 3rem; margin-bottom: 5px; }
+#result-text { 
+    font-size: 3rem; 
+    margin-bottom: 5px; 
+}
 
 .sketch-line {
     border: 0;
@@ -84,38 +66,102 @@ p { font-size: 1.8rem; }
     border-radius: 50%;
     margin: 30px 0;
 }
+
 .home-button {
-  position: fixed;
-  top: 15px;
-  left: 60px;
-  z-index: 1000;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  display: block;
+    position: fixed;
+    top: 15px;
+    left: 60px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: block;
 }
 
 .home-button img {
-  width: 65px;
-  height: 65px;
-  object-fit: contain;
-  transition: all 0.3s ease;
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    transition: all 0.3s ease;
 }
 
 .home-button:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .home-button:hover img {
-  filter: drop-shadow(0 0 5px rgba(79, 128, 111, 0.5));
+    filter: drop-shadow(0 0 5px rgba(79, 128, 111, 0.5));
 }
+
 @media screen and (max-width: 530px) {
- .home-button img {
-    width: 35px;
-    height: 35px;
-  }
+    .home-button img {
+        width: 35px;
+        height: 35px;
+    }
   
-  .home-button {
-    top: 15px;
-    left: 15px;
-  }
+    .home-button {
+        top: 15px;
+        left: 15px;
+    }
+}
+
+.highlighter {
+    position: relative;
+    display: inline;
+    z-index: 1; /* text above the highlight */
+}
+
+.highlighter::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -5%;
+    width: 110%;
+    height: 1.2em; /* slightly taller than the font */
+    background-color: rgba(224, 159, 150, 0.5);
+    z-index: -1; /* behind the text */
+    transform: translateY(-50%) rotate(-1.5deg); /* center vertically and add hand-drawn wobble */
+    border-radius: 20px; /* slightly rounded edges */
+}
+
+#effect-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999;
+    overflow: hidden;
+}
+
+/* Win Effect: Popping Stars */
+.star-particle {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    opacity: 0;
+    animation: popInOut 2.5s ease-in-out forwards;
+}
+
+@keyframes popInOut {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.5) rotate(180deg); opacity: 1; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+/* Lose Effect: Falling Rain */
+.rain-particle {
+    position: absolute;
+    top: -20px;
+    width: 2px;
+    height: 20px;
+    background-color: rgba(100, 100, 150, 0.5);
+    animation: rainFall linear forwards;
+}
+
+@keyframes rainFall {
+    0% { transform: translateY(0); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
 }

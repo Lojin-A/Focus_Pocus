@@ -1,118 +1,86 @@
 body {
-    font-family: 'Balsamiq Sans', cursive;
-    background-color: #f4f4f9; /* Matches a light, playful theme */
-    color: #333;
+    background-color: #fdfbf7;
+    background-image: radial-gradient(#d3d3d3 1px, transparent 1px);
+    background-size: 20px 20px;
+    font-family: 'Patrick Hand', cursive;
     margin: 0;
     padding: 20px;
+    min-height: 100vh;
+}
+
+.home-button {
+    position: fixed;
+    top: 15px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.home-button img {
+    width: 50px;
+    height: 50px;
 }
 
 .page-title {
     text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-    color: #222;
-    text-shadow: 2px 2px 0px #ffcc00;
+    font-size: 3.5rem;
+    margin-top: 50px;
+    color: #333;
 }
 
-/* Grid Layout for the Cards */
 .leaderboard-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    max-width: 1000px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Individual Game Card UI */
-.game-card {
-    background-color: #fdfdfd;
-    border: 3px solid #222;
-    border-radius: 15px;
+/* Matching the Paper Box from your Account page */
+.paper-box {
+    background-color: white;
+    border: 3px solid #333;
+    /* This specific radius creates the hand-drawn look */
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; 
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
     padding: 20px;
-    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.8);
-    display: flex;
-    flex-direction: column;
 }
 
-/* Header contains both Title and Button */
 .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border-bottom: 2px dashed #ccc;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .card-header h2 {
     margin: 0;
-    font-size: 1.5rem;
-    color: #222;
+    font-size: 1.8rem;
+    color: #4b2c20;
 }
 
-/* Small, inline Vote Button */
-.vote-btn {
-    background-color: #ffcc00;
-    border: 2px solid #222;
-    border-radius: 8px;
-    padding: 8px 15px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-    font-family: 'Balsamiq Sans', cursive;
-    box-shadow: 2px 2px 0px rgba(0,0,0,0.8);
-}
-
-.vote-btn:hover:not(:disabled) {
-    background-color: #ffdb4d;
-    transform: translateY(-2px);
-    box-shadow: 4px 4px 0px rgba(0,0,0,0.8);
-}
-
-.vote-btn:active:not(:disabled) {
-    transform: translateY(1px);
-    box-shadow: 1px 1px 0px rgba(0,0,0,0.8);
-}
-
-.vote-btn:disabled {
-    background-color: #e0e0e0;
-    color: #888;
-    cursor: not-allowed;
-    border-color: #999;
-    box-shadow: none;
-    transform: none;
-}
-
-/* Ordered List for Top 5 Players */
 .top-players {
-    padding-left: 25px; /* Gives room for the numbers */
+    list-style: none;
+    padding: 0;
     margin: 0;
-    font-size: 1.1rem;
 }
 
 .top-players li {
-    margin: 12px 0;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5px;
+    font-size: 1.3rem;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .top-players li:last-child {
     border-bottom: none;
 }
 
-/* Flexbox inside the list item to push score to the right */
-.top-players li {
-    display: flex;
-    justify-content: space-between;
-}
-
 .player-name {
-    font-weight: bold;
-    color: #444;
+    color: #333;
 }
 
 .player-score {
-    color: #666;
-    font-weight: normal;
+    font-weight: bold;
+    color: #6a4a91;
 }

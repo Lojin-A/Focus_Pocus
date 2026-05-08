@@ -4,61 +4,91 @@ include '../Includes/db_connect.php';
 $db = new Database();
 $conn = $db->connect();
 
-// Default to memory game if nothing is selected
-$game = $_GET['game'] ?? 'memory';
-$table = "score_" . $game;
+// Helper function to fetch top 5 for each table
+function getTopScores($conn, $table, $stat_col, $order = 'DESC') {
+    $query = "SELECT u.username, s.* FROM $table s 
+              JOIN users u ON s.user_id = u.user_id 
+              ORDER BY $stat_col $order LIMIT 5";
+    return $conn->query($query);
+}
 
-// Map the "Best" column name based on the game
-$stat_column = ($game == 'memory') ? 'best_time_seconds' : (($game == 'whack') ? 'total_wins' : 'total_played');
-$order = ($game == 'memory') ? 'ASC' : 'DESC'; // Lower time is better for memory
-
-$query = "SELECT u.username, s.* 
-          FROM $table s 
-          JOIN users u ON s.user_id = u.id 
-          ORDER BY $stat_column $order LIMIT 10";
-$result = $conn->query($query);
+$memory_scores = getTopScores($conn, 'score_memory', 'best_time_seconds', 'ASC');
+$whack_scores  = getTopScores($conn, 'score_whack', 'total_wins'); // Changed from high_score
+$rps_scores    = getTopScores($conn, 'score_rps', 'total_wins');
+$guess_scores  = getTopScores($conn, 'score_guess', 'total_played', 'ASC'); // Use total_played or check HeidiSQL
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Leaderboard</title>
+    <meta charset="UTF-8">
+    <title>Global Leaderboards</title>
     <link rel="stylesheet" href="../Assets/CSS/leaderboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="leaderboard-container">
-        <h1>Focus Pocus Rankings</h1>
-        
-        <!-- Filter between your different score tables -->
-        <form method="GET">
-            <select name="game" onchange="this.form.submit()">
-                <option value="memory" <?= $game == 'memory' ? 'selected' : '' ?>>Memory Match</option>
-                <option value="whack" <?= $game == 'whack' ? 'selected' : '' ?>>Whack-a-Mole</option>
-                <option value="rps" <?= $game == 'rps' ? 'selected' : '' ?>>Rock Paper Scissors</option>
-                <option value="guess" <?= $game == 'guess' ? 'selected' : '' ?>>Guess Number</option>
-            </select>
-        </form>
+    <a href="../index.php" class="home-button">
+        <img src="../Assets/Media/home-icon.png" alt="Home">
+    </a>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Player</th>
-                    <th>Played</th>
-                    <th>Wins</th>
-                    <th><?= ucfirst(str_replace('_', ' ', $stat_column)) ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while($row = $result->fetch_assoc()): ?>
-                <tr>
-                    <td><?= htmlspecialchars($row['username']) ?></td>
-                    <td><?= $row['total_played'] ?></td>
-                    <td><?= $row['total_wins'] ?></td>
-                    <td><?= $row['memory' ? $row[$stat_column]."s" : $row[$stat_column]] ?></td>
-                </tr>
+    <h1 class="page-title">Leaderboards</h1>
+
+    <div class="leaderboard-wrapper">
+        <div class="game-card paper-box">
+            <div class="card-header">
+                <h2>🧠 Memory Match</h2>
+            </div>
+            <ul class="top-players">
+                <?php while($row = $memory_scores->fetch_assoc()): ?>
+                    <li>
+                        <span class="player-name"><?= htmlspecialchars($row['username']) ?></span>
+                        <span class="player-score"><?= $row['best_time_seconds'] ?>s</span>
+                    </li>
                 <?php endwhile; ?>
-            </tbody>
-        </table>
+            </ul>
+        </div>
+
+        <div class="game-card paper-box">
+            <div class="card-header">
+                <h2>🔨 Whack-a-Mole</h2>
+            </div>
+            <ul class="top-players">
+                <?php while($row = $whack_scores->fetch_assoc()): ?>
+                    <li>
+                        <span class="player-name"><?= htmlspecialchars($row['username']) ?></span>
+                        <span class="player-score"><?= $row['total_wins'] ?> Wins</span>
+                    </li>
+                <?php endwhile; ?>
+            </ul>
+        </div>
+
+        <div class="game-card paper-box">
+            <div class="card-header">
+                <h2>✂️ RPS</h2>
+            </div>
+            <ul class="top-players">
+                <?php while($row = $rps_scores->fetch_assoc()): ?>
+                    <li>
+                        <span class="player-name"><?= htmlspecialchars($row['username']) ?></span>
+                        <span class="player-score"><?= $row['total_wins'] ?> Wins</span>
+                    </li>
+                <?php endwhile; ?>
+            </ul>
+        </div>
+
+        <div class="game-card paper-box">
+            <div class="card-header">
+                <h2>❓ Guess Number</h2>
+            </div>
+            <ul class="top-players">
+                <?php while($row = $guess_scores->fetch_assoc()): ?>
+                    <li>
+                        <span class="player-name"><?= htmlspecialchars($row['username']) ?></span>
+                        <span class="player-score"><?= $row['fewest_guesses'] ?> Guesses</span>
+                    </li>
+                <?php endwhile; ?>
+            </ul>
+        </div>
     </div>
 </body>
 </html>
