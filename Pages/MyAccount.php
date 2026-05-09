@@ -34,6 +34,11 @@ $memoryData = $memoryObj->getStats($current_user_id);
 require_once '../Actions/GuessStats.php';
 $guessObj = new GuessStats($conn);
 $guessData = $guessObj->getStats($current_user_id);
+
+require_once '../Actions/RpsStats.php';
+$rpsObj = new RpsStats($conn);
+$rpsData = $rpsObj->getStats($current_user_id);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +58,7 @@ $guessData = $guessObj->getStats($current_user_id);
 
     <div class="profile-tags-container">
         <div class="tag paper-box">
-            <img src="../Assets/Media/MyAccount_Icon.png" alt="Profile" class="tag-icon">
+            <img src="../Assets/Media/MyAccount1.png" alt="Profile" class="tag-icon">
             <?php echo $display_name; ?>
         </div>
         
@@ -95,7 +100,7 @@ $guessData = $guessObj->getStats($current_user_id);
             <div id="piechart4" class="chart-area"></div>
             <div class="info-area">
                 <h3>✂️ Rock Paper Scissors</h3>
-                <p>Total Played: 20 | Win Rate: 60%</p>
+                <p>Total Played: <?php echo $rpsData['played'] ?? 0; ?> | Wins: <?php echo $rpsData['wins'] ?? 0; ?></p>
             </div>
         </div>
 
@@ -121,6 +126,13 @@ $guessData = $guessObj->getStats($current_user_id);
      played: <?php echo $guessData['played']; ?>,
      fewest: <?php echo $guessData['fewest']; ?>
      };
+
+     const rpsData = {
+        played: <?php echo $rpsData['played'] ?? 0; ?>,
+        wins: <?php echo $rpsData['wins'] ?? 0; ?>,
+        losses: <?php echo $rpsData['losses'] ?? 0; ?>
+    };
+    
     </script>
 
     <script src="../Assets/JavaScript/account-script.js"></script>

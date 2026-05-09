@@ -1,15 +1,13 @@
 <?php
 session_start(); 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php"); 
-    exit();
-}
 
-// 3. Grab the real logged-in user's ID!
-$current_user_id = $_SESSION['user_id']; 
+if (isset($_SESSION['user_id'])) {
+    $current_user_id = $_SESSION['user_id'];
+} else {
+    $current_user_id = 'null';
+}
 ?>
 <!DOCTYPE html>
-<!-- Don't Forget To Follow Me on Instagrame code_wars_official -->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">  
