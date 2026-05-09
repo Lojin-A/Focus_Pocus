@@ -1,10 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php"); 
-    exit();
+if (isset($_SESSION['user_id'])) {
+    $current_user_id = $_SESSION['user_id'];
+} else {
+    $current_user_id = 'null';
 }
-$current_user_id = $_SESSION['user_id']; 
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +68,9 @@ $current_user_id = $_SESSION['user_id'];
     </div>
   </div>
 
+  <script>
+  const realUserId = <?php echo json_encode($current_user_id); ?>;
+  </script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="../Assets/JavaScript/guess.js"></script>
 

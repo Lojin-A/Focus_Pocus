@@ -177,22 +177,31 @@ $(function () {
 
     initGame();
 });
-
 function saveScore() {
+    console.log("saveScore called");
+    console.log("Attempts:", attempts);
+    console.log("realUserId:", realUserId);
+
+    if (realUserId === null) {
+        console.log("Guest Player: Score was not saved.");
+        return;
+    }
+
     $.ajax({
-        url: "../Actions/save_score.php",
         type: "POST",
+        url: "../Actions/save_score.php",
         data: {
-            user_id: 1,
+            user_id: realUserId,
             game: "Guess the Number",
-            is_win: 1,
-            score: attempts
+            score: attempts,
+            is_win: 1
         },
         success: function(response) {
-            console.log("Score saved");
+            console.log("Score saved response:", response);
         },
-        error: function() {
+        error: function(xhr) {
             console.log("Error saving score");
+            console.log(xhr.responseText);
         }
     });
 }
