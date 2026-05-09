@@ -115,3 +115,26 @@ if ($game == 'Guess the Number') {
         $update_stmt->execute();
     }
 }
+
+// ==========================================
+// 4. LOGIC FOR ROCK PAPER SCISSORS
+// ==========================================
+if ($game == 'rps') {
+    $sql = "INSERT INTO score_rps (user_id, total_played, total_wins, total_losses) 
+            VALUES (?, 1, ?, ?) 
+            ON DUPLICATE KEY UPDATE 
+            total_played = total_played + 1, 
+            total_wins = total_wins + ?, 
+            total_losses = total_losses + ?";
+
+    $stmt = $conn->prepare($sql);
+    
+    $stmt->bind_param("iiiii", $user_id, $add_win, $add_loss, $add_win, $add_loss);
+
+    if ($stmt->execute()) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'error' => $conn->error]);
+    }
+}
+
