@@ -99,7 +99,7 @@ $(document).ready(function() {
     });
 
     $('#modal-home-btn').click(function() {
-        window.location.href = '../index.html'; 
+        window.location.href = '../index.php'; 
     });
 
 }); 

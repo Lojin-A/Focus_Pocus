@@ -18,7 +18,7 @@ include 'Actions/index_data.php';
     </a>
     <?php if (isset($_SESSION['user_id'])): ?>
     <a href="Pages/MyAccount.php" class="Myaccount-button">
-        <img src="Assets/Media/MyAccount_Icon .png" alt="My Account">
+        <img src="Assets/Media/MyAccount_Icont.png" alt="My Account">
     </a>
     <a href="Actions/logout.php" class="logout-button">
         <img src="Assets/Media/logout.png" alt="Logout">

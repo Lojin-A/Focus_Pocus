@@ -58,7 +58,7 @@ $rpsData = $rpsObj->getStats($current_user_id);
 
     <div class="profile-tags-container">
         <div class="tag paper-box">
-            <img src="../Assets/Media/MyAccount_Icon.png" alt="Profile" class="tag-icon">
+            <img src="../Assets/Media/MyAccount1.png" alt="Profile" class="tag-icon">
             <?php echo $display_name; ?>
         </div>
         
