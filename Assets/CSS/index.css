@@ -1,4 +1,3 @@
-
 /* ==========================Font========================== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
@@ -47,24 +46,26 @@
 #account-section a:hover img {
     filter: drop-shadow(0 0 5px rgba(79, 128, 111, 0.5));
 }
+
 .title {
-            font-size: 3.5rem;
-            letter-spacing: 4px;
-            color: #92c0de; /* Light blue fill */
-            -webkit-text-stroke: 2px #2b2b2b; /* Dark outline */
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
-            margin-bottom: 20px 0 40px 0;
-            text-transform: uppercase;
-            font-weight: 700;
-            text-align: center;
-            width: 100%;
-        }
+    font-size: 3.5rem;
+    letter-spacing: 4px;
+    color: #92c0de;
+    -webkit-text-stroke: 2px #2b2b2b;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    margin-bottom: 20px 0 40px 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+}
+
 body {
   display: flex;
-  justify-content: column;
+  justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-image:  linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../Media/Background.png');
+  background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../Media/Background.png');
   flex-direction: column;
   margin: 0;
   overflow: hidden;
@@ -89,13 +90,13 @@ body {
   background-color: #fff;
   margin: 20px;
   border-radius: 20px;
-  overflow: hidden;
+  overflow: visible;
   transition: .3s ease-in-out;
   border: 2px solid #2b2b2b;
-  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* Sketchy shape */
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
   box-shadow: 3px 4px 0px rgba(0,0,0,0.1);
-
 }
+
 .container:hover .card {
   filter: blur(20px);
   transform: scale(.9);
@@ -122,6 +123,7 @@ body {
   box-shadow: 1px 1px 2px rgba(0, 0, 0, .2),
               -1px -1px 2px rgba(255, 255, 255, .4);
 }
+
 .container .card:hover .circle h2 {
   visibility: hidden;
 }
@@ -142,15 +144,17 @@ body {
   text-align: center;
   transition: 1s ease-in-out;
 }
+
 .container .card .circle h2 {
   letter-spacing: 2px;
   text-transform: uppercase;
   transition: all 0.3s ease;
-  -webkit-text-stroke: 1px #312a2a; /* Dark outline */
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
+  -webkit-text-stroke: 1px #312a2a;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
   font-size: 2.5em;
   padding: 40px 0;
 }
+
 .container .card:nth-child(1) .circle h2 {
   color: #E3BEA5;
 }
@@ -163,6 +167,7 @@ body {
 .container .card:nth-child(4) .circle h2 {
   color: #436c85;
 }
+
 .container .card .content {
   position: absolute;
   bottom: 10px;
@@ -183,18 +188,16 @@ body {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
-  background: #000;
+  background: #E3BEA5;
   color: #000000;
   border-radius: 40px;
   text-decoration: none;
   margin-top: 20px;
   transition: .8s ease-in-out;
+  -webkit-text-stroke: 2px #2b2b2b;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
 }
-.container .card .content a {
-  background: #E3BEA5;
-  -webkit-text-stroke: 2px #2b2b2b; /* Dark outline */
-  text-shadow: 2px 2px 0px rgba(0,0,0,0.1); /* Slight drop shadow */
-}
+
 .container .card:nth-child(1) .circle {
   background: url('../Media/Whack-a-Mole-icon.png');
   background-size: cover;
@@ -223,7 +226,6 @@ body {
 .container .card:nth-child(2) .content a {
   background: #5a9388;
 }
-
 .container .card:nth-child(3) .content a {
   background: #a8674f;
 }
@@ -232,23 +234,11 @@ body {
 }
 
 @keyframes colorChange {
-  0% {
-    color: #fff;
-  }
-
-  50% {
-    color: #b1b493;
-  }
-
-  80% {
-    color: #4f8a8b;
-  }
-
-  100% {
-    color: #fff;
-  }
+  0%   { color: #fff; }
+  50%  { color: #b1b493; }
+  80%  { color: #4f8a8b; }
+  100% { color: #fff; }
 }
-
 
 .like-btn {
     display: inline-flex;
@@ -259,7 +249,7 @@ body {
     padding: 10px 18px;
     margin-top: 8px;
     background: #fff6f7;
-    color: #b94b63 ;
+    color: #b94b63;
     border: 2px solid #2b2b2b;
     border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
     box-shadow: 3px 4px 0px rgba(0, 0, 0, 0.1);
@@ -305,8 +295,32 @@ body {
 .like-btn.liked i {
     color: #c81d4f;
 }
-/* =======================Responsive Breakpoint ========================== */
 
+/* ======================= Most Liked Card ========================== */
+.container .card.most-liked {
+    border-color: #d4a017;
+    box-shadow: 0 0 0 3px #d4a017, 3px 4px 0px rgba(0,0,0,0.1);
+}
+
+.container .card.most-liked::before {
+    content: "Today's Top Game";
+    position: absolute;
+    top: -16px;
+    right: 10px;
+    z-index: 10;
+    background: #d4a017;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    border: 2px solid #2b2b2b;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.15);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* =======================Responsive Breakpoint ========================== */
 @media only screen and (max-width: 992px) {
   /* Add responsive styles for max-width 992px */
 }

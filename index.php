@@ -3,6 +3,7 @@ session_start();
 include 'Actions/index_data.php'; 
 ?>
 <?php include 'Actions/login-signup.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -32,7 +33,7 @@ include 'Actions/index_data.php';
      <h1 class="title">Focus Pocus</h1>
 <div class="container">
     <!-- Card 1: Whack-a-Mole -->
-    <div class="card">
+    <div class="card <?= $top_game === 'Whack-a-Mole' ? 'most-liked' : '' ?>">
         <div class="circle">
          <h2>Whack a Mole</h2>
         </div>
@@ -48,7 +49,8 @@ include 'Actions/index_data.php';
     </div>
 
     <!-- Card 2: Memory Match -->
-    <div class="card">
+     
+    <div class="card <?= $top_game === 'Memory Match' ? 'most-liked' : '' ?>">
         <div class="circle">
             <h2>Memory Match</h2>
         </div>
@@ -64,7 +66,7 @@ include 'Actions/index_data.php';
     </div>
 
     <!-- Card 3: Rock Paper Scissors -->
-    <div class="card">
+    <div class="card <?= $top_game === 'Rock Paper Scissors' ? 'most-liked' : '' ?>">
         <div class="circle">
             <h2>Rock Paper Scissors</h2>
         </div>
@@ -80,7 +82,7 @@ include 'Actions/index_data.php';
     </div>
 
     <!-- Card 4: Guess the Number -->
-    <div class="card">
+    <div class="card <?= $top_game === 'Guess the Number' ? 'most-liked' : '' ?>">
         <div class="circle">
             <h2>Guess the Number</h2>
         </div>
