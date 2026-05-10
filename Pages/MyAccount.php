@@ -58,7 +58,7 @@ $rpsData = $rpsObj->getStats($current_user_id);
 
     <div class="profile-tags-container">
         <div class="tag paper-box">
-            <img src="../Assets/Media/MyAccount_Icon.png" alt="Profile" class="tag-icon">
+            <img src="../Assets/Media/MyAccount1.png" alt="Profile" class="tag-icon">
             <?php echo $display_name; ?>
         </div>
         
@@ -75,8 +75,10 @@ $rpsData = $rpsObj->getStats($current_user_id);
     <div class="info-area">
         <h3>✨ NumGuess Pro</h3>
         <p>
-            Total Played: <?php echo $guessData['played']; ?> | Fewest Guesses: <?php echo ($guessData['fewest'] == 0); ?>
-        </p>
+    Total Played: <?php echo $guessData['played']; ?> |
+    Fewest Guesses:
+    <?php echo ($guessData['fewest'] == 0) ? "No wins yet" : $guessData['fewest']; ?>
+       </p>
     </div>
 </div>
 
