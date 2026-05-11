@@ -1,6 +1,7 @@
-<?php 
-session_start();
-include 'Actions/index_data.php'; 
+<?php
+require_once __DIR__ . '/Includes/Session.php';
+Session::start();
+include 'Actions/index_data.php';
 ?>
 <?php include 'Actions/login-signup.php'; ?>
 
@@ -17,7 +18,7 @@ include 'Actions/index_data.php';
     <a href="Pages/leaderboard.php" class="Myaccount-button">
         <img src="Assets/Media/Leaderboard.png" alt="Leaderboard">
     </a>
-    <?php if (isset($_SESSION['user_id'])): ?>
+    <?php if (Session::get('user_id') !== null): ?>
     <a href="Pages/MyAccount.php" class="Myaccount-button">
         <img src="Assets/Media/MyAccount_Icont.png" alt="My Account">
     </a>

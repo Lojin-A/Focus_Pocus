@@ -1,8 +1,9 @@
 <?php
-session_start();
+require_once __DIR__ . '/../Includes/Session.php';
+Session::start();
 
 // إذا مسجل دخول، رجعه للرئيسية
-if (isset($_SESSION['user_id'])) {
+if (Session::get('user_id') !== null) {
     header("Location: ../index.php");
     exit();
 }
@@ -29,8 +30,8 @@ if (isset($_POST['login'])) {
 
     if ($row = $result->fetch_assoc()) {
         if (password_verify($password, $row['password'])) {
-            $_SESSION['user_id'] = $row['user_id'];
-            $_SESSION['username'] = $row['username'];
+            Session::set('user_id', $row['user_id']);
+            Session::set('username', $row['username']);
             header("Location: ../index.php");
             exit();
         } else {

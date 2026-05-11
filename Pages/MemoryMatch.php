@@ -1,8 +1,9 @@
 <?php
-session_start(); 
+require_once __DIR__ . '/../Includes/Session.php';
+Session::start();
 
-if (isset($_SESSION['user_id'])) {
-    $current_user_id = $_SESSION['user_id'];
+if (Session::get('user_id') !== null) {
+    $current_user_id = Session::get('user_id');
 } else {
     $current_user_id = 'null';
 }

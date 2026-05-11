@@ -1,15 +1,17 @@
 <?php
-session_start(); 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../login.php"); 
+require_once __DIR__ . '/../Includes/Session.php';
+Session::start();
+
+if (Session::get('user_id') === null) {
+    header("Location: ../login.php");
     exit();
 }
-require_once '../Includes/db_connect.php'; 
+require_once '../Includes/db_connect.php';
 
 $database = new Database();
 $conn = $database->connect();
 
-$current_user_id = $_SESSION['user_id'];
+$current_user_id = Session::get('user_id');
 
 $stmt = $conn->prepare("SELECT username, email FROM users WHERE user_id = ?");
 $stmt->bind_param("i", $current_user_id);
