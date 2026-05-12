@@ -66,6 +66,7 @@ $rpsData = $rpsObj->getStats($current_user_id);
     <button type="submit">
         <img src="../Assets/Media/skull.png" alt="Delete Account">
     </button>
+    <h1>Delete Account</h1>
 </form>
 
 
@@ -86,7 +87,7 @@ $rpsData = $rpsObj->getStats($current_user_id);
         <div class="card paper-box">
     <div id="piechart1" class="chart-area"></div>
     <div class="info-area">
-        <h3>✨ NumGuess Pro</h3>
+        <h3>✨ NumGuess</h3>
         <p>
     Total Played: <?php echo $guessData['played']; ?> |
     Fewest Guesses:
