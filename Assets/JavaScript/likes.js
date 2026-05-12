@@ -1,53 +1,32 @@
 $(document).ready(function () {
-
+    // Set initial state from server (data-liked attribute)
     $('.like-btn').each(function () {
-        const gameName = $(this).data('game');
-        if (localStorage.getItem('liked_' + gameName) === 'true') {
+        if ($(this).data('liked') === 1 || $(this).data('liked') === '1') {
             $(this).addClass('liked');
         }
     });
 
     $('.like-btn').on('click', function () {
-        const btn = $(this);
-        const gameName = btn.data('game');
-        const countEl = btn.find('.count');
-        const isLiked = btn.hasClass('liked');
+        var btn = $(this);
+        var gameName = btn.data('game');
 
-        btn.removeClass('pop');
-        setTimeout(() => btn.addClass('pop'), 10);
+        $.post('Actions/like_game.php', { game_name: gameName }, function (response) {
+            var data = typeof response === 'string' ? JSON.parse(response) : response;
 
-        if (!isLiked) {
-            btn.addClass('liked');
-            countEl.text(parseInt(countEl.text()) + 1);
+            if (data.status === 'guest') {
+                alert('Please log in to like a game.');
+                return;
+            }
 
-            localStorage.setItem('liked_' + gameName, 'true');
+            if (data.status === 'liked') {
+                btn.addClass('liked');
+                btn.data('liked', '1');
+            } else if (data.status === 'unliked') {
+                btn.removeClass('liked');
+                btn.data('liked', '0');
+            }
 
-            $.ajax({
-                url: 'Actions/like_game.php',
-                method: 'POST',
-                data: { game_name: gameName },
-                error: function () {
-                    btn.removeClass('liked');
-                    countEl.text(parseInt(countEl.text()) - 1);
-                    localStorage.removeItem('liked_' + gameName);
-                }
-            });
-
-        } else {
-            btn.removeClass('liked');
-            countEl.text(parseInt(countEl.text()) - 1);
-            localStorage.removeItem('liked_' + gameName);
-            $.ajax({
-                url: 'Actions/like_game.php',
-                method: 'POST',
-                data: { game_name: gameName, action: 'unlike' },
-                error: function () {
-                    btn.addClass('liked');
-                    countEl.text(parseInt(countEl.text()) + 1);
-                    localStorage.setItem('liked_' + gameName, 'true');
-                }
-            });
-        }
+            btn.find('.count').text(data.count);
+        });
     });
-
 });
