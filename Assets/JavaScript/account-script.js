@@ -39,17 +39,17 @@ function drawAllCharts() {
     }
 
 
-    // Chart 1: NumGuess Pro
-  if (guessData.fewest > 0) {
-    makePieChart('piechart1', 'Guess Performance', ['#06d6a0', '#ffd166'], [
-        ['Type', 'Amount'], 
-        ['Best Attempts', guessData.fewest], 
-        ['Other Plays', guessData.played - 1]
+  // Chart 1: NumGuess Pro
+if (guessData.fewest > 0) {
+    makeBarChart('piechart1', 'NumGuess Statistics', ['#06d6a0', '#ffd166'], [
+        ['Type', 'Amount'],
+        ['Fewest Attempts', guessData.fewest],
+        ['Total Played', guessData.played]
     ]);
 } else {
-    makePieChart('piechart1', 'Guess Game Activity', ['#ffd166'], [
-        ['Type', 'Amount'], 
-        ['Played', guessData.played]
+    makeBarChart('piechart1', 'NumGuess Statistics', ['#ffd166'], [
+        ['Type', 'Amount'],
+        ['Total Played', guessData.played]
     ]);
 }
 
@@ -80,5 +80,4 @@ function drawAllCharts() {
        ['Losses', rpsData.losses],
        ['Ties', tiesCount > 0 ? tiesCount : 0]
     ]);
-    
 }

@@ -121,3 +121,33 @@ body {
         gap: 10px;
     }
 }
+
+.delete-button {
+    position: fixed;
+    top: 15px;
+    right: 60px;
+    z-index: 1000;
+}
+
+.delete-button button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.3s ease;
+}
+
+.delete-button img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.delete-button button:hover {
+    transform: scale(1.1);
+}
+
+.delete-button button:hover img {
+    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4));
+}

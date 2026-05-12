@@ -58,6 +58,17 @@ $rpsData = $rpsObj->getStats($current_user_id);
         <img src="../Assets/Media/home-icon.png" alt="Home">
     </a>
 
+<form action="../Actions/delete_account.php"
+      method="POST"
+      class="delete-button"
+      onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+
+    <button type="submit">
+        <img src="../Assets/Media/skull.png" alt="Delete Account">
+    </button>
+</form>
+
+
     <div class="profile-tags-container">
         <div class="tag paper-box">
             <img src="../Assets/Media/MyAccount1.png" alt="Profile" class="tag-icon">
