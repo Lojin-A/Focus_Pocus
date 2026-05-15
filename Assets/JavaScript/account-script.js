@@ -41,17 +41,17 @@ function drawAllCharts() {
 
   // Chart 1: NumGuess Pro
 if (guessData.fewest > 0) {
-    makeBarChart('piechart1', 'NumGuess Statistics', ['#06d6a0', '#ffd166'], [
-        ['Type', 'Amount'],
-        ['Fewest Attempts', guessData.fewest],
-        ['Total Played', guessData.played]
-    ]);
-} else {
-    makeBarChart('piechart1', 'NumGuess Statistics', ['#ffd166'], [
-        ['Type', 'Amount'],
-        ['Total Played', guessData.played]
-    ]);
-}
+        makeBarChart('piechart1', 'NumGuess Statistics', [
+            ['Type', 'Amount', { role: 'style' }],
+            ['Fewest Attempts', guessData.fewest, '#06d6a0'],
+            ['Total Played', guessData.played, '#ffd166']
+        ]);
+    } else {
+        makeBarChart('piechart1', 'NumGuess Statistics', [
+            ['Type', 'Amount', { role: 'style' }],
+            ['Total Played', guessData.played, '#ffd166']
+        ]);
+    }
 
     // Chart 2: Whack-a-Mole
     makeBarChart('piechart2', 'Whack-a-Mole Stats', [
