@@ -55,6 +55,7 @@ $(document).ready(function() {
         isPlaying = false;
         clearInterval(gameTimer); 
         clearInterval(moleTimer); 
+        
         $('.mole-img').attr('src', '../Assets/Media/hole-empty.png').removeClass('active');
         $('#start-btn').text('Play New Game!');
         
@@ -63,33 +64,18 @@ $(document).ready(function() {
         } else {
             $('#final-score').html("Great job!<br>Final Score: " + score);
         }
-
+        
         $('#game-over-modal').removeClass('hidden');
 
         if (realUserId !== null) {
-            
-            let isWin = false;
-            if (score > 0) {
-                isWin = true;
-            }
-            $.ajax({
-                type: "POST",
-                url: "../Actions/save_score.php", 
-                data: {
-                    user_id: realUserId, 
-                    game: "Whack-a-Mole",
-                    score: score,
-                    is_win: isWin ? 1 : 0 
-                },
-                success: function(response) {
-                    console.log("Score successfully sent to the vault!", response);
-                },
-                error: function() {
-                    console.log("Oh no, the waiter dropped the score!");
-                }
+            $.post("../Actions/save_score.php", {
+                user_id: realUserId, 
+                game: "Whack-a-Mole",
+                score: score,
+                is_win: (score > 0) ? 1 : 0
+            }, function(response) {
+                console.log("Score saved!");
             });
-        } else {
-            console.log("Guest Player: Score was not saved to the database.");
         }
     }
 

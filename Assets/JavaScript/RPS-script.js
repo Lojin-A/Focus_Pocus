@@ -58,21 +58,13 @@ function checkMatchWinner() {
 
 function saveRpsScore(isWin) {
     if (typeof realUserId !== 'undefined' && realUserId !== null && realUserId !== 'null') {
-        $.ajax({
-            type: "POST",
-            url: "../Actions/save_score.php",
-            data: {
-                user_id: realUserId,
-                game: "rps",
-                score: isWin ? 1 : 0, 
-                is_win: isWin ? 1 : 0
-            },
-            success: function(response) {
-                console.log("Score successfully sent to the vault!", response);
-            },
-            error: function() {
-                console.log("Oh no, the waiter dropped the score!");
-            }
+        $.post("../Actions/save_score.php", {
+            user_id: realUserId,
+            game: "rps",
+            score: isWin ? 1 : 0, 
+            is_win: isWin ? 1 : 0
+        }, function(response) {
+            console.log("Score successfully sent to the vault!");
         });
     } else {
         console.log("Guest Player: Score was not saved.");
