@@ -120,21 +120,19 @@ if ($game == 'Guess the Number') {
 // 4. LOGIC FOR ROCK PAPER SCISSORS
 // ==========================================
 if ($game == 'rps') {
-    $sql = "INSERT INTO score_rps (user_id, total_played, total_wins, total_losses) 
-            VALUES (?, 1, ?, ?) 
-            ON DUPLICATE KEY UPDATE 
-            total_played = total_played + 1, 
-            total_wins = total_wins + ?, 
-            total_losses = total_losses + ?";
+    $check_stmt = $conn->prepare("SELECT total_played FROM score_rps WHERE user_id = ?");
+    $check_stmt->bind_param("i", $user_id);
+    $check_stmt->execute();
+    $result = $check_stmt->get_result();
 
-    $stmt = $conn->prepare($sql);
-    
-    $stmt->bind_param("iiiii", $user_id, $add_win, $add_loss, $add_win, $add_loss);
-
-    if ($stmt->execute()) {
-        echo json_encode(['success' => true]);
+    if ($result->num_rows == 0) {
+        $insert_stmt = $conn->prepare("INSERT INTO score_rps (user_id, total_played, total_wins, total_losses) VALUES (?, 1, ?, ?)");
+        $insert_stmt->bind_param("iii", $user_id, $add_win, $add_loss);
+        $insert_stmt->execute();
     } else {
-        echo json_encode(['success' => false, 'error' => $conn->error]);
+        $update_stmt = $conn->prepare("UPDATE score_rps SET total_played = total_played + 1, total_wins = total_wins + ?, total_losses = total_losses + ? WHERE user_id = ?");
+        $update_stmt->bind_param("iii", $add_win, $add_loss, $user_id);
+        $update_stmt->execute();
     }
 }
 
