@@ -54,7 +54,7 @@ if (Session::get('user_id') !== null) {
             
             <div class="modal-buttons">
                 <button id="play-again-btn">Play Again</button>
-                <button id="modal-home-btn">🏠 Go Home</button>
+                <button id="modal-home-btn">Go Home</button>
             </div>
         </div>
     </div>
