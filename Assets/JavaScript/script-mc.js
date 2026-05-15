@@ -96,25 +96,16 @@ function endGame(isWin) {
     
     modal.classList.remove('hidden');
     if (realUserId !== null) {
-        $.ajax({
-            type: "POST",
-            url: "../Actions/save_score.php", 
-            data: {
-                user_id: realUserId, 
-                game: "memory",
-                score: flips,
-                time: timeLeft,
-                is_win: isWin ? 1 : 0
-            },
-            success: function(response) {
-                console.log("Memory score successfully sent to the vault!", response);
-            },
-            error: function() {
-                console.log("Oh no, the waiter dropped the score!");
-            }
+        $.post("../Actions/save_score.php", {
+            user_id: realUserId, 
+            game: "memory",
+            score: flips,
+            time: timeLeft,
+            is_win: isWin ? 1 : 0
+        }, function(response) {
+            console.log("Memory score saved!");
         });
     } else {
-        // Just print a message to the console for guests
         console.log("Guest Player: Memory score was not saved to the database.");
     }
 }

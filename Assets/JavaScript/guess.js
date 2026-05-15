@@ -187,21 +187,12 @@ function saveScore() {
         return;
     }
 
-    $.ajax({
-        type: "POST",
-        url: "../Actions/save_score.php",
-        data: {
-            user_id: realUserId,
-            game: "Guess the Number",
-            score: attempts,
-            is_win: 1
-        },
-        success: function(response) {
-            console.log("Score saved response:", response);
-        },
-        error: function(xhr) {
-            console.log("Error saving score");
-            console.log(xhr.responseText);
-        }
+    $.post("../Actions/save_score.php", {
+        user_id: realUserId,
+        game: "Guess the Number",
+        score: attempts,
+        is_win: 1
+    }, function(response) {
+        console.log("Score saved!");
     });
 }
