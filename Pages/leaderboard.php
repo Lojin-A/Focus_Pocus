@@ -13,7 +13,7 @@ function getTopScores($conn, $table, $stat_col, $order = 'DESC') {
 }
 
 $memory_scores = getTopScores($conn, 'score_memory', 'best_time_seconds', 'ASC');
-$whack_scores  = getTopScores($conn, 'score_whack', 'high_score'); // Changed from high_score
+$whack_scores  = getTopScores($conn, 'score_whack', 'high_score'); 
 $rps_scores    = getTopScores($conn, 'score_rps', 'total_wins');
 $guess_scores = getTopScores($conn, 'score_guess', 'fewest_attempts', 'ASC'); // Use total_played or check HeidiSQL
 ?>
