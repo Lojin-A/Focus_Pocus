@@ -71,7 +71,7 @@ if (Session::get('user_id') !== null) {
   </div>
 
   <script>
-  const realUserId = <?php echo json_encode($current_user_id); ?>;
+  const realUserId = <?php echo $current_user_id; ?>;
   </script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="../Assets/JavaScript/guess.js"></script>
