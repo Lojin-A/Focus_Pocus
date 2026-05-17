@@ -3,7 +3,7 @@ require_once __DIR__ . '/../Includes/Session.php';
 Session::start();
 
 if (Session::get('user_id') === null) {
-    header("Location: ../login.php");
+    header("Location: login-signup.php");
     exit();
 }
 require_once '../Includes/db_connect.php';

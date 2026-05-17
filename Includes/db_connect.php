@@ -3,7 +3,7 @@
 class Database {
     private $host = "localhost";
     private $username = "root";
-    private $password = "";
+    private $password = "lomysql*123";
     private $dbname = "focus_pocus_db";
     public $conn;
 
