@@ -40,18 +40,13 @@ function drawAllCharts() {
 
 
   // Chart 1: NumGuess Pro
-if (guessData.fewest > 0) {
+
         makeBarChart('piechart1', 'NumGuess Statistics', [
-            ['Type', 'Amount', { role: 'style' }],
+            ['Stats', 'Amount', { role: 'style' }],
             ['Fewest Attempts', guessData.fewest, '#06d6a0'],
             ['Total Played', guessData.played, '#ffd166']
         ]);
-    } else {
-        makeBarChart('piechart1', 'NumGuess Statistics', [
-            ['Type', 'Amount', { role: 'style' }],
-            ['Total Played', guessData.played, '#ffd166']
-        ]);
-    }
+    
 
     // Chart 2: Whack-a-Mole
     makeBarChart('piechart2', 'Whack-a-Mole Stats', [
@@ -73,11 +68,9 @@ if (guessData.fewest > 0) {
     ]);
 
    // Chart 4: Rock Paper Scissors
-   let tiesCount = rpsData.played - (rpsData.wins + rpsData.losses);
-   makePieChart('piechart4', 'Match Results', ['#90c2e7', '#ef476f', '#ffd166'], [
-       ['Result', 'Amount'],
+   makePieChart('piechart4', 'Match Stats', ['#90c2e7', '#ef476f'], [
+       ['Stats', 'Amount'],
        ['Wins', rpsData.wins],
-       ['Losses', rpsData.losses],
-       ['Ties', tiesCount > 0 ? tiesCount : 0]
+       ['Losses', rpsData.losses]
     ]);
 }

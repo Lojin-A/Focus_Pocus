@@ -59,7 +59,7 @@ if (isset($_POST['signup'])) {
     if ($check->num_rows > 0) {
         $error_signup = "Username already taken!";
     } else {
-        $hashed = password_hash($password, PASSWORD_DEFAULT);
+        $hashed = password_hash($password, PASSWORD_ARGON2ID);
         $insert = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
         $insert->bind_param("sss", $username, $email, $hashed);
 
